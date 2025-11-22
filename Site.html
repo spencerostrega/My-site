@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media and Content Creation Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and our custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-red': '#D92323', 
+                        'dark-bg': '#0F0F0F', // Deeper black
+                        'card-bg': '#1E1E1E', 
+                        'light-text': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'red-glow': '0 0 15px rgba(217, 35, 35, 0.5)',
+                        'subtle-shadow': '0 4px 10px rgba(0, 0, 0, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom style adjustments for a non-timeline, achievement-based layout -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            background-color: #0F0F0F; 
+        }
+        .header-bg {
+            background-color: #1A1A1A; 
+            border-bottom: 4px solid #D92323;
+        }
+        
+        /* General card styling for visual depth */
+        .achievement-card {
+            background-color: #1E1E1E;
+            border-bottom: 3px solid #D92323;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6), 0 0 10px rgba(217, 35, 35, 0.3);
+        }
+
+        /* Skill Card Style (kept from previous version) */
+        .skill-card-prof {
+            border: 1px solid #333;
+            border-top: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .skill-card-prof:hover {
+            border-top-color: #D92323;
+            box-shadow: 0 0 20px rgba(217, 35, 35, 0.2);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="font-sans text-light-text antialiased">
+
+    <!-- Header Section with Profile Image and Logo -->
+    <header class="header-bg py-12 sm:py-20">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-12">
+                
+                <!-- Profile Image -->
+                <div class="flex-shrink-0 relative w-40 h-40 sm:w-52 sm:h-52">
+                    <img 
+                        src="https://placehold.co/208x208/D92323/ffffff?text=Your+Face" 
+                        alt="Professional Profile Picture" 
+                        class="w-full h-full object-cover rounded-full border-4 border-white shadow-2xl transform hover:rotate-2 transition duration-500"
+                        onerror="this.onerror=null;this.src='https://placehold.co/208x208/D92323/ffffff?text=Your+Face';"
+                    >
+                </div>
+                
+                <!-- Title and Summary -->
+                <div class="text-center sm:text-left sm:flex-1">
+                    <h1 class="text-6xl sm:text-7xl font-extrabold tracking-tighter text-white mb-3">
+                        Digital <span class="text-primary-red">Impact</span> Portfolio
+                    </h1>
+                    <p class="text-xl sm:text-2xl font-light text-gray-400 border-b border-gray-700 pb-4">
+                        A Decade of Content Strategy & Audience Development
+                    </p>
+                </div>
+
+                <!-- Company Logo Placeholder -->
+                <div class="flex-shrink-0 hidden lg:block">
+                    <img 
+                        src="https://placehold.co/150x70/1E1E1E/D92323?text=COMPANY+LOGO" 
+                        alt="Company Logo Placeholder" 
+                        class="rounded-lg border-2 border-gray-600 p-3 opacity-90 shadow-subtle-shadow"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x70/1E1E1E/D92323?text=COMPANY+LOGO';"
+                    >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="py-16 sm:py-28">
+        <div class="container mx-auto px-6 max-w-5xl">
+
+            <!-- Introduction Paragraph -->
+            <div class="mb-20 border-l-8 border-primary-red pl-8 py-4 bg-card-bg rounded-xl shadow-xl">
+                <p class="text-xl font-light italic text-gray-300">
+                    "This addendum provides a detailed narrative of my 10-year journey in digital content creation, brand strategy, and audience development, demonstrating a consistent ability to generate high-volume engagement and build successful online ventures."
+                </p>
+            </div>
+
+            <!-- Achievement Sections (Thematic Focus) -->
+            <div class="space-y-24">
+
+                <!-- 1. Foundational Mastery -->
+                <section>
+                    <h2 class="text-4xl font-extrabold text-white mb-10 tracking-wider text-center">
+                        I. <span class="text-primary-red">FOUNDATIONAL</span> MASTERY
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- Point 1: Early Production -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">Skill Acquisition</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Initial foundational video production experience, including projects for the high school marching band and the college vlog, Pellow and Company.
+                            </p>
+                        </div>
+
+                        <!-- Point 2: Drone Specialization -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">Technical Specialization</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Rapid development of expertise in drone cinematography, providing high-quality, short-form edits for the local automotive community.
+                            </p>
+                        </div>
+
+                        <!-- Point 3: The Limitless Media Group Founding -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">Brand Formalization</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Official formation of The Limitless Media Group, formalizing the ability to transform technical production skill into audience-driven, trend setting content.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Strategic Scaling & Corporate Delivery -->
+                <section>
+                    <h2 class="text-4xl font-extrabold text-white mb-10 tracking-wider text-center">
+                        II. <span class="text-primary-red">STRATEGIC</span> SCALING & CORPORATE DELIVERY
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- Point 4: High-Volume Scaling -->
+                        <div class="p-8 rounded-xl achievement-card">
+                            <h3 class="text-2xl font-bold mb-3 text-primary-red">High-Volume Content Strategy</h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                Partnership with The Maximum Overdrive Collection, managing daily, high-volume, cross-platform content that achieved **millions of combined views**.
+                            </p>
+                        </div>
+
+                        <!-- Point 5: Corporate & E-commerce Launch -->
+                        <div class="p-8 rounded-xl achievement-card">
+                            <h3 class="text-2xl font-bold mb-3 text-primary-red">Commercial Adaptability</h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                Delivered high-fidelity training videos for major telecom clients. Launched TallTechChannel, a successful 3D printing **e-commerce venture**.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Explosive Growth & Leadership -->
+                <section>
+                    <h2 class="text-4xl font-extrabold text-white mb-10 tracking-wider text-center">
+                        III. <span class="text-primary-red">EXPLOSIVE</span> GROWTH & LEADERSHIP
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- Point 6: Viral Brand Incubation -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">Viral Incubation</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Co-founded The Hot Rod Experience, a brand that achieved explosive viral growth, garnering **over 1 million views in the first six months**.
+                            </p>
+                        </div>
+
+                        <!-- Point 7: Current Viral Performance -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">5M+ View Generation</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Launched the personal brand, Spence Sells Cars, generating **over 5 million views recently**, confirming ongoing viral success.
+                            </p>
+                        </div>
+                        
+                        <!-- Point 8: Strategic Synthesis & Advisory -->
+                        <div class="p-6 rounded-lg achievement-card">
+                            <h3 class="text-xl font-bold mb-3 text-primary-red">Future Leadership</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm">
+                                Focus shifts to applying proven growth techniques in advisory and leadership roles, maximizing ROI for new strategic media partnerships.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+            
+            <!-- Core Skillsets Section -->
+            <div class="mt-28 mb-16">
+                <h2 class="text-4xl font-extrabold text-center text-white mb-12 tracking-wider">
+                    CORE <span class="text-primary-red">EXPERTISES</span>
+                    <div class="h-0.5 bg-gray-700 w-full mt-4"></div>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Skill Card 1 -->
+                    <div class="bg-card-bg p-6 rounded-xl skill-card-prof hover:z-10">
+                        <p class="text-2xl font-bold mb-3 text-primary-red">Digital Production</p>
+                        <ul class="text-gray-400 text-base list-disc list-inside space-y-2">
+                            <li>Advanced Drone Cinematography</li>
+                            <li>Professional Video Editing & Post-Production</li>
+                            <li>High-Impact Visual Storytelling</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 2 -->
+                    <div class="bg-card-bg p-6 rounded-xl skill-card-prof hover:z-10">
+                        <p class="text-2xl font-bold mb-3 text-primary-red">Brand Strategy & Growth</p>
+                        <ul class="text-gray-400 text-base list-disc list-inside space-y-2">
+                            <li>Brand Incubation & Scaling</li>
+                            <li>Cross-Platform Content Strategy (Millions of Views)</li>
+                            <li>Algorithm Mastery & Viral Growth</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 3 -->
+                    <div class="bg-card-bg p-6 rounded-xl skill-card-prof hover:z-10">
+                        <p class="text-2xl font-bold mb-3 text-primary-red">Monetization & Corporate</p>
+                        <ul class="text-gray-400 text-base list-disc list-inside space-y-2">
+                            <li>Niche E-commerce Integration (TallTechChannel)</li>
+                            <li>Corporate Training Video Production (Telecom)</li>
+                            <li>Client-Facing Communication & Delivery</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Final Statement -->
+            <div class="mt-20 text-center">
+                <p class="text-3xl font-bold text-white mb-4">
+                    <span class="text-primary-red">RESULTS DRIVEN:</span> From Production Mastery to Viral Performance.
+                </p>
+                <div class="h-1 bg-primary-red w-40 mx-auto rounded-full shadow-red-glow"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-bg border-t border-gray-800 py-8">
+        <div class="container mx-auto px-6 max-w-5xl text-center text-sm text-gray-600">
+            &copy; 2025 The Limitless Media Group. All rights reserved. | Strategic Media Portfolio
+        </div>
+    </footer>
+
+</body>
+</html>
