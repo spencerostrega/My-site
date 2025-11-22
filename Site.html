@@ -6,6 +6,10 @@
     <title>Social Media and Content Creation Portfolio</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Inter Font using standard link tag -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
     <!-- Configure Tailwind to use Inter font and our custom colors -->
     <script>
         tailwind.config = {
@@ -30,7 +34,6 @@
     </script>
     <!-- Custom style adjustments for a non-timeline, achievement-based layout -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             background-color: #0F0F0F; 
         }
@@ -51,7 +54,7 @@
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6), 0 0 10px rgba(217, 35, 35, 0.3);
         }
 
-        /* Skill Card Style (kept from previous version) */
+        /* Skill Card Style */
         .skill-card-prof {
             border: 1px solid #333;
             border-top: 5px solid transparent;
@@ -110,7 +113,7 @@
 
             <!-- Introduction Paragraph -->
             <div class="mb-20 border-l-8 border-primary-red pl-8 py-4 bg-card-bg rounded-xl shadow-xl">
-                <p class="text-xl font-light italic text-gray-300">
+                <p id="introductionText" class="text-xl font-light italic text-gray-300">
                     "This addendum provides a detailed narrative of my 10-year journey in digital content creation, brand strategy, and audience development, demonstrating a consistent ability to generate high-volume engagement and build successful online ventures."
                 </p>
             </div>
@@ -145,7 +148,7 @@
                         <div class="p-6 rounded-lg achievement-card">
                             <h3 class="text-xl font-bold mb-3 text-primary-red">Brand Formalization</h3>
                             <p class="text-gray-300 leading-relaxed text-sm">
-                                Official formation of The Limitless Media Group, formalizing the ability to transform technical production skill into audience-driven, trend setting content.
+                                Official formation of The Limitless Media Group, formalizing the ability to transform technical production skill into audience-driven, marketable content.
                             </p>
                         </div>
                     </div>
@@ -187,7 +190,7 @@
                         <div class="p-6 rounded-lg achievement-card">
                             <h3 class="text-xl font-bold mb-3 text-primary-red">Viral Incubation</h3>
                             <p class="text-gray-300 leading-relaxed text-sm">
-                                Co-founded The Hot Rod Experience, a brand that achieved explosive viral growth, garnering **over 1 million views in the first six months**.
+                                Lead Content Strategist with The Hot Rod Experience, a brand that achieved explosive viral growth, garnering **over 1 million views in the first six months**.
                             </p>
                         </div>
 
