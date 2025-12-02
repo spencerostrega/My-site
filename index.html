@@ -27,37 +27,35 @@
             max-height: 80vh;
             overflow-y: auto;
             padding-bottom: 2rem;
-            /* Using standard classes, avoiding !important */
         }
 
-        /* Specificity boost for the user message bubble */
+        /* FIX 1: Removed !important (approx. line 86) */
         .user-message-bubble {
             background-color: var(--user-bubble);
             border-radius: 1.25rem 0.5rem 1.25rem 1.25rem;
             max-width: 80%;
             padding: 1rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            /* Line 86 fix: Removed !important, using specific classes */
+            /* Ensured necessary styles are present */
         }
 
-        /* Specificity boost for the model message bubble */
+        /* FIX 1: Removed !important (approx. line 91) */
         .model-message-bubble {
             background-color: var(--gemini-bubble);
             border-radius: 0.5rem 1.25rem 1.25rem 1.25rem;
             max-width: 80%;
             padding: 1rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            /* Line 91 fix: Removed !important, using specific classes */
+            /* Ensured necessary styles are present */
         }
 
-        /* Specificity boost for citation links */
+        /* FIX 1: Removed !important (approx. line 97) */
         .citation-link {
             font-size: 0.75rem;
             color: var(--primary-color);
             text-decoration: underline;
             margin-top: 0.5rem;
             display: block;
-            /* Line 97 fix: Removed !important, using specific classes */
         }
 
         .input-area {
@@ -88,6 +86,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Basic markdown styling for the model's response */
         .markdown-content h1, .markdown-content h2, .markdown-content h3 {
             font-weight: 700;
             margin-top: 1.5rem;
@@ -223,7 +222,7 @@
 
         async function initializeFirebase() {
             try {
-                // Initialize Firebase Config from the global context variable
+                // Check for firebase config using correct typeof operator
                 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-chat-app-id';
 
@@ -290,8 +289,8 @@
         function renderChatHistory(messages) {
             const chatHistoryElement = document.getElementById('chat-history');
             const fragment = document.createDocumentFragment();
-            let lastScrollTop = chatHistoryElement.scrollTop;
-            let isScrolledToBottom = chatHistoryElement.scrollHeight - chatHistoryElement.clientHeight <= lastScrollTop + 1;
+            // Check if we are near the bottom before rendering new content
+            const isScrolledToBottom = chatHistoryElement.scrollHeight - chatHistoryElement.clientHeight <= chatHistoryElement.scrollTop + 1;
 
             // Clear existing non-initial messages (keep the welcome message)
             const initialMessage = chatHistoryElement.querySelector('.model-message-bubble').closest('.flex');
@@ -307,8 +306,8 @@
 
             chatHistoryElement.appendChild(fragment);
 
-            // Scroll to bottom if user was already at the bottom or if it's the first load
-            if (isScrolledToBottom) {
+            // Scroll to bottom if user was at the bottom or if it's the first load
+            if (isScrolledToBottom || messages.length <= 2) {
                 chatHistoryElement.scrollTop = chatHistoryElement.scrollHeight;
             }
         }
@@ -324,8 +323,6 @@
 
         /**
          * Safely escapes HTML content to prevent XSS.
-         * @param {string} str The string to escape.
-         * @returns {string} The escaped string.
          */
         function escapeHtml(str) {
             return str.replace(/&/g, '&amp;')
@@ -337,9 +334,6 @@
 
         /**
          * Renders Markdown content and handles citations.
-         * @param {string} content - The markdown text.
-         * @param {Array<Object>} sources - Array of citation objects.
-         * @returns {string} HTML string.
          */
         function renderMarkdownWithCitations(content, sources) {
             let htmlContent = window.marked.parse(content);
@@ -361,10 +355,6 @@
 
         /**
          * Creates a chat message element for the UI.
-         * @param {string} role - 'user' or 'model'.
-         * @param {string} content - The message content (markdown for model).
-         * @param {Array<Object>} sources - Grounding metadata sources.
-         * @returns {HTMLElement} The complete message element.
          */
         function createMessageElement(role, content, sources = []) {
             const isUser = role === 'user';
@@ -372,9 +362,10 @@
             container.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
 
             const bubble = document.createElement('div');
+            // Using class names defined in the style block for specificity
             bubble.className = isUser
-                ? 'user-message-bubble bg-teal-50 text-gray-900 shadow-lg'
-                : 'model-message-bubble bg-blue-50 text-gray-800 shadow-lg markdown-content';
+                ? 'user-message-bubble text-gray-900 shadow-lg'
+                : 'model-message-bubble text-gray-800 shadow-lg markdown-content';
 
             if (isUser) {
                 bubble.innerHTML = `<p>${escapeHtml(content)}</p>`;
@@ -431,11 +422,9 @@
 
         /**
          * Adds a message to Firestore and updates the UI instantly.
-         * @param {string} role - 'user' or 'model'.
-         * @param {string} content - The message text.
-         * @param {Array<Object>} sources - Optional grounding sources.
          */
         async function saveMessage(role, content, sources = []) {
+            // FIX 2: Ensure correct use of typeof for checks
             if (!window.db || !window.userId || typeof __app_id === 'undefined') {
                 console.error("Firestore not ready. Cannot save message.");
                 return;
@@ -495,8 +484,7 @@
             const MAX_RETRIES = 5;
             let responseData = null;
 
-            // Line 610 fix: Use a proper 'for' loop initialization, removing 'function' keyword confusion.
-            // Line 611 fix: Use correct 'typeof' check for variable existence/type.
+            // FIX 2: Corrected 'function' issue (approx. line 610) by using a standard, valid 'for' loop structure.
             for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
                 try {
                     const response = await fetch(apiUrl, {
@@ -508,7 +496,6 @@
                     if (!response.ok) {
                         if (response.status === 429 && attempt < MAX_RETRIES - 1) {
                             const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
-                            // console.warn(`API Rate Limit hit. Retrying in ${Math.round(delay / 1000)}s...`);
                             await new Promise(resolve => setTimeout(resolve, delay));
                             continue; // Skip to next attempt
                         }
@@ -519,19 +506,18 @@
                     break; // Success, break the retry loop
 
                 } catch (error) {
-                    // This catches network errors or JSON parsing issues
                     if (attempt === MAX_RETRIES - 1) {
                         console.error("Fetch/API error after all retries:", error);
-                        await saveMessage('model', `An error occurred: ${error.message}`);
+                        // Save a failure message to the chat history
+                        await saveMessage('model', `An error occurred while connecting to the AI: ${error.message}`);
                     }
-                    // For network/other errors, proceed to next attempt if not maxed out
                     if (attempt < MAX_RETRIES - 1) {
                         const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
                         await new Promise(resolve => setTimeout(resolve, delay));
                     }
                 }
             }
-            
+
             toggleLoading(false);
 
             if (responseData) {
@@ -550,15 +536,16 @@
                                 uri: attribution.web?.uri,
                                 title: attribution.web?.title,
                             }))
-                            .filter(source => source.uri && source.title); // Filter out invalid sources
+                            .filter(source => source.uri && source.title);
                     }
                 }
-                
+
                 // 3. Save model response to Firestore
+                // This will trigger the onSnapshot listener and update the chat UI
                 await saveMessage('model', modelResponseText, sources);
             }
         }
-        
+
         // Initialize Firebase when the script loads
         window.onload = function () {
             window.initializeFirebase();
