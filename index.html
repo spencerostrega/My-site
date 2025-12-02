@@ -427,190 +427,202 @@
     </footer>
 
     <script>
-        // --- Data for Projects (Refactored to use 'var' and 'function' for ES5 compatibility) ---
-        var projects = [
-            {
-                id: 'hotrod',
-                title: 'The Hot Rod Experience Launch',
-                subtitle: 'Strategy and production for a classic car enthusiast brand.',
-                description: 'When I first engaged with The Hot Rod Experience, the brand was essentially a relic. It had suffered through nearly four stagnant years of sporadic posting, resulting in a plateaued follower count and minimal organic engagement. The content that was being produced lacked cohesion, failed to adapt to new platform standards, and was effectively being ignored by the relevant algorithms. The challenge was not just to revive it, but to fundamentally redesign its digital DNA to become a high-performance content engine.\n\nThe first step was a complete strategic audit of all existing assets and a decisive pivot toward what the current platforms favor: high-impact, short-form video optimized for TikTok and Instagram Reels. This involved moving away from passive, long-form content to a rigorous, daily production schedule focused on the visceral elements of car culture: engine sounds, detailed close-ups, and fast-paced, high-energy editing.\n\nThis shift was the catalyst. By meticulously crafting content that was both authentic to the brand and engineered for virality, we tapped into a new, younger demographic while simultaneously re-engaging the core enthusiast base. We leveraged trending audio, refined our posting times, and created a feedback loop based on viewer data.\n\nThe results were immediate and explosive. Within the first six months, we didn\'t just wake up the audience; we expanded it exponentially, achieving a verifiable surge that surpassed the 1 million view mark for the first time in the brand\'s history. This revitalization proved that even dormant brands can be resurrected and propelled into hyper-growth with the right strategic content lever and production discipline.',
-                metrics: { label: 'Views in 6 Months', value: '1M+' },
-                imageText: 'The Hot Rod Experience',
-                imageColor: 'D92323',
-                link: 'https://placeholder.com/hot-rod-channel', // Placeholder URL
-                linkName: 'Hot Rod Channel Link'
-            },
-            {
-                id: 'ecommerce',
-                title: 'TallTechChannel E-commerce Integration',
-                subtitle: 'Built and scaled an online shop specializing in 3D printing accessories.',
-                description: 'TallTechChannel started as a personal challenge and a digital experiment: What happens when you commit to posting a high-quality video every single day for 100 days straight? In the niche world of 3D printing, where technical detail often slows down production, this was a bold move.\n\nThe strategy relied on volume and value. By flooding the feed with helpful tips, time-lapses, and troubleshooting guides, I capitalized on the platform\'s need for consistent content. The discipline required to shoot, edit, and post daily was immense, but the data spoke for itself. The channel grew rapidly, amassing nearly 5,000 subscribers who weren\'t just casual viewers—they were makers looking for solutions.\n\nThis trust translated directly into commerce. I launched an integrated e-commerce shop selling 3D printing accessories, and the conversion rates were significantly higher than industry standards. The "100 Days" experiment proved that consistency builds trust, and trust builds a loyal customer base.',
-                metrics: { label: 'Orders Processed', value: '500+' },
-                imageText: 'TallTechChannel E-comm',
-                imageColor: '9CA3AF',
-                link: 'https://placeholder.com/talltechchannel-store', // Placeholder URL
-                linkName: 'E-commerce Store Link'
-            },
-            {
-                id: 'viralbrand',
-                title: 'Spence Sells Cars Viral Content',
-                subtitle: 'Rapid deployment of high-performing, niche automotive content.',
-                description: 'In the highly competitive automotive sales market, most dealerships rely on heavy ad spend. "Spence Sells Cars" was built on a different premise: pure organic reach. I wanted to prove that personal branding and authentic content could outsell paid ads.\n\nI focused on personality-driven content that demystified the car buying process and showcased inventory in an entertaining light. By staying on top of trending audio and video formats, the channel hit a viral vein. In just eight months, the content generated over 5 million views across platforms, all without spending a dollar on promotion.\n\nCrucially, these weren\'t just vanity metrics. The visibility created a sales funnel that led directly to the dealership floor. Customers walked in holding their phones, asking for "the guy from TikTok." This organic traffic resulted in over $100,000 in direct sales revenue, validating the power of a personal brand in a traditional retail environment.',
-                metrics: { label: 'Recent Views', value: '5M+' },
-                imageText: 'Spence Sells Cars',
-                imageColor: 'F3F4F6',
-                link: 'https://placeholder.com/spencesellscars-tiktok', // Placeholder URL
-                linkName: 'TikTok/Reels Channel'
+        // Wrapping the entire script in an IIFE to ensure local scope and maximum compatibility
+        (function() {
+            // --- Data for Projects (using 'var' for ES5 compatibility) ---
+            var projects = [
+                {
+                    id: 'hotrod',
+                    title: 'The Hot Rod Experience Launch',
+                    subtitle: 'Strategy and production for a classic car enthusiast brand.',
+                    description: 'When I first engaged with The Hot Rod Experience, the brand was essentially a relic. It had suffered through nearly four stagnant years of sporadic posting, resulting in a plateaued follower count and minimal organic engagement. The content that was being produced lacked cohesion, failed to adapt to new platform standards, and was effectively being ignored by the relevant algorithms. The challenge was not just to revive it, but to fundamentally redesign its digital DNA to become a high-performance content engine.\n\nThe first step was a complete strategic audit of all existing assets and a decisive pivot toward what the current platforms favor: high-impact, short-form video optimized for TikTok and Instagram Reels. This involved moving away from passive, long-form content to a rigorous, daily production schedule focused on the visceral elements of car culture: engine sounds, detailed close-ups, and fast-paced, high-energy editing.\n\nThis shift was the catalyst. By meticulously crafting content that was both authentic to the brand and engineered for virality, we tapped into a new, younger demographic while simultaneously re-engaging the core enthusiast base. We leveraged trending audio, refined our posting times, and created a feedback loop based on viewer data.\n\nThe results were immediate and explosive. Within the first six months, we didn\'t just wake up the audience; we expanded it exponentially, achieving a verifiable surge that surpassed the 1 million view mark for the first time in the brand\'s history. This revitalization proved that even dormant brands can be resurrected and propelled into hyper-growth with the right strategic content lever and production discipline.',
+                    metrics: { label: 'Views in 6 Months', value: '1M+' },
+                    imageText: 'The Hot Rod Experience',
+                    imageColor: 'D92323',
+                    link: 'https://placeholder.com/hot-rod-channel', // Placeholder URL
+                    linkName: 'Hot Rod Channel Link'
+                },
+                {
+                    id: 'ecommerce',
+                    title: 'TallTechChannel E-commerce Integration',
+                    subtitle: 'Built and scaled an online shop specializing in 3D printing accessories.',
+                    description: 'TallTechChannel started as a personal challenge and a digital experiment: What happens when you commit to posting a high-quality video every single day for 100 days straight? In the niche world of 3D printing, where technical detail often slows down production, this was a bold move.\n\nThe strategy relied on volume and value. By flooding the feed with helpful tips, time-lapses, and troubleshooting guides, I capitalized on the platform\'s need for consistent content. The discipline required to shoot, edit, and post daily was immense, but the data spoke for itself. The channel grew rapidly, amassing nearly 5,000 subscribers who weren\'t just casual viewers—they were makers looking for solutions.\n\nThis trust translated directly into commerce. I launched an integrated e-commerce shop selling 3D printing accessories, and the conversion rates were significantly higher than industry standards. The "100 Days" experiment proved that consistency builds trust, and trust builds a loyal customer base.',
+                    metrics: { label: 'Orders Processed', value: '500+' },
+                    imageText: 'TallTechChannel E-comm',
+                    imageColor: '9CA3AF',
+                    link: 'https://placeholder.com/talltechchannel-store', // Placeholder URL
+                    linkName: 'E-commerce Store Link'
+                },
+                {
+                    id: 'viralbrand',
+                    title: 'Spence Sells Cars Viral Content',
+                    subtitle: 'Rapid deployment of high-performing, niche automotive content.',
+                    description: 'In the highly competitive automotive sales market, most dealerships rely on heavy ad spend. "Spence Sells Cars" was built on a different premise: pure organic reach. I wanted to prove that personal branding and authentic content could outsell paid ads.\n\nI focused on personality-driven content that demystified the car buying process and showcased inventory in an entertaining light. By staying on top of trending audio and video formats, the channel hit a viral vein. In just eight months, the content generated over 5 million views across platforms, all without spending a dollar on promotion.\n\nCrucially, these weren\'t just vanity metrics. The visibility created a sales funnel that led directly to the dealership floor. Customers walked in holding their phones, asking for "the guy from TikTok." This organic traffic resulted in over $100,000 in direct sales revenue, validating the power of a personal brand in a traditional retail environment.',
+                    metrics: { label: 'Recent Views', value: '5M+' },
+                    imageText: 'Spence Sells Cars',
+                    imageColor: 'F3F4F6',
+                    link: 'https://placeholder.com/spencesellscars-tiktok', // Placeholder URL
+                    linkName: 'TikTok/Reels Channel'
+                }
+            ];
+            
+            // Helper function to find a project by ID
+            function getProjectById(id) {
+                return projects.find(function(p) { return p.id === id; });
             }
-        ];
-        
-        // Helper function to find a project by ID
-        function getProjectById(id) {
-            return projects.find(function(p) { return p.id === id; });
-        }
 
-        // Function to navigate between views
-        function navigate(pageId) {
-            var homeView = document.getElementById('home-view');
-            var detailView = document.getElementById('detail-view');
-            var navContactLink = document.getElementById('nav-contact-link');
-            var navBackButton = document.getElementById('nav-back-button');
-            var project;
+            // Function to navigate between views
+            function navigate(pageId) {
+                var homeView = document.getElementById('home-view');
+                var detailView = document.getElementById('detail-view');
+                var navContactLink = document.getElementById('nav-contact-link');
+                var navBackButton = document.getElementById('nav-back-button');
+                var project;
 
-            window.scrollTo(0, 0); // Scroll to the top on navigation
+                window.scrollTo(0, 0); // Scroll to the top on navigation
 
-            if (pageId === 'home') {
-                homeView.classList.remove('hidden');
-                detailView.classList.add('hidden');
-                navContactLink.classList.remove('hidden');
-                navBackButton.classList.add('hidden');
-                window.location.hash = ''; // Clear hash for home page
-            } else {
-                project = getProjectById(pageId);
-                if (project) {
-                    homeView.classList.add('hidden');
-                    detailView.classList.remove('hidden');
-                    navContactLink.classList.add('hidden');
-                    navBackButton.classList.remove('hidden');
-                    renderProjectDetail(project);
-                    window.location.hash = pageId;
+                if (pageId === 'home') {
+                    homeView.classList.remove('hidden');
+                    detailView.classList.add('hidden');
+                    navContactLink.classList.remove('hidden');
+                    navBackButton.classList.add('hidden');
+                    window.location.hash = ''; // Clear hash for home page
                 } else {
-                    // Fallback to home if project not found
-                    navigate('home');
+                    project = getProjectById(pageId);
+                    if (project) {
+                        homeView.classList.add('hidden');
+                        detailView.classList.remove('hidden');
+                        navContactLink.classList.add('hidden');
+                        navBackButton.classList.remove('hidden');
+                        renderProjectDetail(project);
+                        window.location.hash = pageId;
+                    } else {
+                        // Fallback to home if project not found
+                        navigate('home');
+                    }
+                }
+                // Check if lucide object exists before calling createIcons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons(); // Re-render Lucide icons on the new page
                 }
             }
-            lucide.createIcons(); // Re-render Lucide icons on the new page
-        }
 
-        function navigateToProject(id) {
-            navigate(id);
-        }
-
-        // Function to render the project detail page content
-        function renderProjectDetail(project) {
-            var detailContent = document.getElementById('project-detail-content');
-            
-            // Generate content HTML
-            detailContent.innerHTML = 
-                '<!-- Back Button (Mobile/Contextual) -->' +
-                '<button onclick="navigate(\'home\')" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">' +
-                    '<i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio' +
-                '</button>' +
-
-                '<!-- Project Title & Subtitle -->' +
-                '<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white animate-fade-in">' + project.title + '</h1>' +
-                '<p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12 animate-fade-in" style="animation-delay: 100ms;">' +
-                    project.subtitle +
-                '</p>' +
-
-                '<!-- Project Image/Visual Area -->' +
-                '<div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border animate-fade-in" style="animation-delay: 200ms;">' +
-                    '<img src="https://placehold.co/1200x600/111111/' + project.imageColor + '?text=' + project.imageText.replace(/ /g, '+') + '"' + 
-                         'alt="Visual representation of the ' + project.title + ' project"' +
-                         'class="w-full h-auto object-cover">' +
-                    '<!-- Metric Overlay -->' +
-                    '<div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">' +
-                        '<span class="text-3xl md:text-5xl font-extrabold text-white">' + project.metrics.value + '</span>' +
-                        '<p class="text-xs md:text-sm text-white uppercase tracking-wider">' + project.metrics.label + '</p>' +
-                    '</div>' +
-                '</div>' +
-
-                '<!-- Detailed Description -->' +
-                '<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">' +
-                    '<div class="md:col-span-2 reveal-on-scroll">' +
-                        '<h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>' +
-                        '<!-- Using whitespace-pre-line to preserve line breaks from \n\n in the description string -->' +
-                        '<p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">' + project.description + '</p>' +
-                    '</div>' +
-
-                    '<!-- Link Area (for user to populate) -->' +
-                    '<div class="md:col-span-1 reveal-on-scroll" style="animation-delay: 400ms;">' +
-                        '<div class="glass-card p-6 rounded-xl border border-brand-red/50">' +
-                            '<h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>' +
-                            '<p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>' +
-                            '<a href="' + project.link + '" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">' +
-                                project.linkName +
-                            '</a>' +
-                            '<p class="text-xs text-brand-muted mt-2">Current URL: ' + project.link + '</p>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-
-                '<!-- Call to Action -->' +
-                '<div class="text-center pt-8 border-t border-brand-border reveal-on-scroll">' +
-                    '<p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>' +
-                    '<a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">' +
-                        'Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>' +
-                    '</a>' +
-                '</div>';
-
-            lucide.createIcons(); // Ensure new icons render
-        }
-
-
-        // --- Initialization Logic ---
-        document.addEventListener('DOMContentLoaded', function() {
-            var initialHash = window.location.hash.substring(1);
-            
-            // Check URL hash for initial navigation
-            if (initialHash && getProjectById(initialHash)) {
-                navigate(initialHash);
-            } else {
-                navigate('home');
-            }
-
-            // Listen for hash changes (browser back/forward)
-            window.addEventListener('hashchange', function() {
-                var hash = window.location.hash.substring(1);
-                if (hash && getProjectById(hash)) {
-                    navigate(hash);
-                } else if (!hash) {
-                    navigate('home');
-                }
-            });
-
-            // Initialize Icons for home view elements
-            lucide.createIcons();
-
-            // Scroll Animation Logic 
-            var observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
+            // Make navigate and navigateToProject globally accessible (for onclick attributes in HTML)
+            window.navigate = navigate;
+            window.navigateToProject = function(id) {
+                navigate(id);
             };
 
-            var observer = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+            // Function to render the project detail page content
+            function renderProjectDetail(project) {
+                var detailContent = document.getElementById('project-detail-content');
+                
+                // Generate content HTML
+                detailContent.innerHTML = 
+                    '<!-- Back Button (Mobile/Contextual) -->' +
+                    '<button onclick="navigate(\'home\')" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">' +
+                        '<i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio' +
+                    '</button>' +
+
+                    '<!-- Project Title & Subtitle -->' +
+                    '<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white animate-fade-in">' + project.title + '</h1>' +
+                    '<p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12 animate-fade-in" style="animation-delay: 100ms;">' +
+                        project.subtitle +
+                    '</p>' +
+
+                    '<!-- Project Image/Visual Area -->' +
+                    '<div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border animate-fade-in" style="animation-delay: 200ms;">' +
+                        '<img src="https://placehold.co/1200x600/111111/' + project.imageColor + '?text=' + project.imageText.replace(/ /g, '+') + '"' + 
+                             'alt="Visual representation of the ' + project.title + ' project"' +
+                             'class="w-full h-auto object-cover">' +
+                        '<!-- Metric Overlay -->' +
+                        '<div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">' +
+                            '<span class="text-3xl md:text-5xl font-extrabold text-white">' + project.metrics.value + '</span>' +
+                            '<p class="text-xs md:text-sm text-white uppercase tracking-wider">' + project.metrics.label + '</p>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<!-- Detailed Description -->' +
+                    '<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">' +
+                        '<div class="md:col-span-2 reveal-on-scroll">' +
+                            '<h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>' +
+                            '<!-- Using whitespace-pre-line to preserve line breaks from \n\n in the description string -->' +
+                            '<p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">' + project.description + '</p>' +
+                        '</div>' +
+
+                        '<!-- Link Area (for user to populate) -->' +
+                        '<div class="md:col-span-1 reveal-on-scroll" style="animation-delay: 400ms;">' +
+                            '<div class="glass-card p-6 rounded-xl border border-brand-red/50">' +
+                                '<h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>' +
+                                '<p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>' +
+                                '<a href="' + project.link + '" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">' +
+                                    project.linkName +
+                                '</a>' +
+                                '<p class="text-xs text-brand-muted mt-2">Current URL: ' + project.link + '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<!-- Call to Action -->' +
+                    '<div class="text-center pt-8 border-t border-brand-border reveal-on-scroll">' +
+                        '<p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>' +
+                        '<a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">' +
+                            'Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>' +
+                        '</a>' +
+                    '</div>';
+
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons(); // Ensure new icons render
+                }
+            }
+
+
+            // --- Initialization Logic ---
+            document.addEventListener('DOMContentLoaded', function() {
+                var initialHash = window.location.hash.substring(1);
+                
+                // Check URL hash for initial navigation
+                if (initialHash && getProjectById(initialHash)) {
+                    navigate(initialHash);
+                } else {
+                    navigate('home');
+                }
+
+                // Listen for hash changes (browser back/forward)
+                window.addEventListener('hashchange', function() {
+                    var hash = window.location.hash.substring(1);
+                    if (hash && getProjectById(hash)) {
+                        navigate(hash);
+                    } else if (!hash) {
+                        navigate('home');
                     }
                 });
-            }, observerOptions);
 
-            document.querySelectorAll('.reveal-on-scroll').forEach(function(element) {
-                observer.observe(element);
+                // Initialize Icons for home view elements
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+                // Scroll Animation Logic 
+                var observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+
+                var observer = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.reveal-on-scroll').forEach(function(element) {
+                    observer.observe(element);
+                });
             });
-        });
+        })(); // End of IIFE
     </script>
 </body>
 </html>
