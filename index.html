@@ -1,551 +1,617 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini API Chat Interface</title>
+    <title>Strategic Media Portfolio | Digital Impact</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- FIX 1: Load Marked.js using a standard script tag, accessing 'marked' from the global window object -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <script>
+        // Minimal JavaScript only for Tailwind config and initial icon loading
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D92323',
+                            dark: '#0F0F0F',
+                            card: '#161616',
+                            border: '#2A2A2A',
+                            text: '#F3F4F6',
+                            muted: '#9CA3AF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Custom styles for aesthetic enhancements and avoiding !important */
-        :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #6366f1;
-            --user-bubble: #e0f2f1;
-            --gemini-bubble: #f0f9ff;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            scroll-behavior: smooth;
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 0%, #1a0505 0%, #050505 70%);
+            color: #F3F4F6;
+        }
+        .glass-card {
+            background: rgba(22, 22, 22, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover {
+            border-color: #D92323;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(217, 35, 35, 0.15);
+        }
+        /* Hide all dynamic content containers by default */
+        .page-view {
+            display: none;
+        }
+        /* Show the main view if NO fragment identifier (hash) is present */
+        #home-view {
+            display: block; 
         }
 
-        .chat-container {
-            max-height: 80vh;
-            overflow-y: auto;
-            padding-bottom: 2rem;
-        }
-
-        .user-message-bubble {
-            background-color: var(--user-bubble);
-            border-radius: 1.25rem 0.5rem 1.25rem 1.25rem;
-            max-width: 80%;
-            padding: 1rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-
-        .model-message-bubble {
-            background-color: var(--gemini-bubble);
-            border-radius: 0.5rem 1.25rem 1.25rem 1.25rem;
-            max-width: 80%;
-            padding: 1rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-
-        .citation-link {
-            font-size: 0.75rem;
-            color: var(--primary-color);
-            text-decoration: underline;
-            margin-top: 0.5rem;
+        /* Use :target to show the specific view that matches the URL fragment */
+        #home-view:target,
+        #hotrod:target,
+        #ecommerce:target,
+        #viralbrand:target {
             display: block;
         }
-
-        .input-area {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 768px; /* max-w-3xl */
-            background-color: #ffffff;
-            border-top: 1px solid #e5e7eb;
-            padding: 1rem;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -2px rgba(0, 0, 0, 0.06);
-            z-index: 10;
+        
+        /* When any detail page is targeted, hide the home view */
+        #hotrod:target ~ #home-view,
+        #ecommerce:target ~ #home-view,
+        #viralbrand:target ~ #home-view {
+             display: none;
         }
 
-        .loading-spinner {
-            border: 4px solid rgba(79, 70, 229, 0.1);
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            width: 1.5rem;
-            height: 1.5rem;
-            animation: spin 1s linear infinite;
+        /* --- Custom Navigation Bar Switching (Pure CSS) --- */
+        /* By default, show the contact link and hide the back button */
+        #nav-back-button, #back-to-home { display: none; }
+        #nav-contact-link { display: block; }
+        
+        /* When a detail page is targeted, switch the navigation links */
+        #hotrod:target ~ .nav-container #nav-contact-link,
+        #ecommerce:target ~ .nav-container #nav-contact-link,
+        #viralbrand:target ~ .nav-container #nav-contact-link {
+            display: none !important;
+        }
+        #hotrod:target ~ .nav-container #nav-back-button,
+        #ecommerce:target ~ .nav-container #nav-back-button,
+        #viralbrand:target ~ .nav-container #nav-back-button {
+            display: inline-flex !important;
+        }
+        /* Also show the contextual "Back to Home" link on detail pages */
+        #hotrod:target #back-to-home,
+        #ecommerce:target #back-to-home,
+        #viralbrand:target #back-to-home {
+            display: inline-flex !important;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Basic markdown styling for the model's response */
-        .markdown-content h1, .markdown-content h2, .markdown-content h3 {
-            font-weight: 700;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .markdown-content h1 { font-size: 1.875rem; }
-        .markdown-content h2 { font-size: 1.5rem; }
-        .markdown-content h3 { font-size: 1.25rem; }
-        .markdown-content p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        .markdown-content ul, .markdown-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            list-style-type: disc;
-        }
-        .markdown-content ol {
-            list-style-type: decimal;
-        }
-        .markdown-content pre {
-            background-color: #1f2937;
-            color: #f9fafb;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            margin-bottom: 1rem;
-        }
-        .markdown-content code:not(pre code) {
-            background-color: #f3f4f6;
-            padding: 0.1rem 0.4rem;
-            border-radius: 0.3rem;
-            font-family: monospace;
-            color: #1f2937;
-        }
+        /* Standard CSS cleanup */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F0F0F; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D92323; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center">
+<body class="antialiased selection:bg-brand-red selection:text-white">
 
-    <div class="w-full max-w-3xl mx-auto p-4 flex-grow relative">
-        <!-- Header -->
-        <header class="text-center py-4 sticky top-0 bg-gray-50 z-20">
-            <h1 class="text-3xl font-bold text-gray-900 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-7 h-7 mr-2 text-indigo-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 3 3m0 0 3-3m-3-4.5V18" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 21h3.75a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75v12.423c0 .878.57 1.692 1.403 2.117l6.023 3.011a2.25 2.25 0 0 0 2.16 0l6.023-3.011c.833-.425 1.403-1.24 1.403-2.118V6.75A2.25 2.25 0 0 0 18.75 4.5H5.25Z" />
-                </svg>
-                Gemini Chat
-            </h1>
-        </header>
-
-        <!-- Chat History Area -->
-        <main id="chat-history" class="chat-container space-y-6 pt-4 pb-48 w-full">
-            <!-- Initial welcome message -->
-            <div class="flex justify-start">
-                <div class="model-message-bubble w-fit">
-                    <p class="text-gray-800">Hello! I'm Gemini, your AI assistant. Ask me anything, or try using the Google Search tool for grounded, up-to-date answers!</p>
-                </div>
+    <!-- Top Navigation / Brand Bar (Now wrapped in a container for :target addressing) -->
+    <div class="nav-container">
+        <nav id="nav-bar" class="fixed w-full z-50 top-0 left-0 border-b border-brand-border bg-brand-dark/90 backdrop-blur-md">
+            <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+                <a href="#home-view" class="font-bold text-lg tracking-wider uppercase flex items-center gap-2 cursor-pointer hover:text-brand-red transition-colors">
+                    <div class="w-3 h-3 bg-brand-red rounded-full"></div>
+                    Portfolio
+                </a>
+                <!-- Contact link visible on home page -->
+                <a id="nav-contact-link" href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors">
+                    Contact Me
+                </a>
+                <!-- Back button for detail pages (pure CSS visibility) -->
+                <a id="nav-back-button" href="#home-view" class="hidden text-sm font-medium text-brand-muted hover:text-brand-red transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4 inline mr-1"></i> Back to Portfolio
+                </a>
             </div>
-            <!-- Messages will be appended here -->
-        </main>
+        </nav>
+    </div>
+    <!-- END NAV -->
 
-        <!-- Input Area (Fixed at the bottom) -->
-        <div class="input-area">
-            <div id="auth-status" class="text-center text-sm mb-2 text-gray-500">
-                Authenticating...
-            </div>
-            <div class="flex space-x-3">
-                <textarea id="prompt-input"
-                          class="flex-grow p-3 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 resize-none shadow-sm transition duration-150 ease-in-out"
-                          rows="1"
-                          placeholder="Type your message..."
-                          oninput="autoExpand(this)"
-                          onkeypress="handleKeyPress(event)"
-                          aria-label="Chat prompt input"></textarea>
+    <!-- 
+        --- PROJECT DETAIL VIEWS (STATIC) ---
+        These are hidden by default and shown only when their ID matches the URL fragment.
+    -->
+    
+    <!-- 1. Hot Rod Detail View -->
+    <div id="hotrod" class="page-view pt-24 min-h-screen">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+            <!-- Back Button -->
+            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            </a>
 
-                <button id="submit-button"
-                        class="px-4 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                        onclick="sendMessage()"
-                        disabled>
-                    <span id="button-text">Send</span>
-                    <div id="loading-indicator" class="loading-spinner hidden ml-2"></div>
-                </button>
-            </div>
+            <!-- Content -->
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">The Hot Rod Experience Launch</h1>
+            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Strategy and production for a classic car enthusiast brand.</p>
 
-            <!-- Configuration Options -->
-            <div class="mt-4 flex flex-wrap gap-4 text-sm">
-                <!-- System Instruction Toggle -->
-                <div class="flex items-center">
-                    <input type="checkbox" id="use-system-instruction" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                    <label for="use-system-instruction" class="ml-2 text-gray-700">Use System Instruction</label>
-                </div>
-
-                <!-- Grounding Toggle -->
-                <div class="flex items-center">
-                    <input type="checkbox" id="use-google-search" checked class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                    <label for="use-google-search" class="ml-2 text-gray-700">Ground with Google Search</label>
+            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
+                <img src="https://placehold.co/1200x600/111111/D92323?text=The+Hot+Rod+Experience" 
+                     alt="Visual representation of The Hot Rod Experience project"
+                     class="w-full h-auto object-cover">
+                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
+                    <span class="text-3xl md:text-5xl font-extrabold text-white">1M+</span>
+                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Views in 6 Months</p>
                 </div>
             </div>
 
-            <div id="system-instruction-area" class="mt-2 hidden">
-                <textarea id="system-instruction-input"
-                          class="w-full p-2 border border-gray-300 rounded-lg text-sm resize-none"
-                          rows="2"
-                          placeholder="System Instruction (e.g., 'Act as a pirate captain...')"></textarea>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
+                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
+                        When I first engaged with The Hot Rod Experience, the brand was essentially a relic. It had suffered through nearly four stagnant years of sporadic posting, resulting in a plateaued follower count and minimal organic engagement. The content that was being produced lacked cohesion, failed to adapt to new platform standards, and was effectively being ignored by the relevant algorithms. The challenge was not just to revive it, but to fundamentally redesign its digital DNA to become a high-performance content engine.
+
+                        The first step was a complete strategic audit of all existing assets and a decisive pivot toward what the current platforms favor: high-impact, short-form video optimized for TikTok and Instagram Reels. This involved moving away from passive, long-form content to a rigorous, daily production schedule focused on the visceral elements of car culture: engine sounds, detailed close-ups, and fast-paced, high-energy editing.
+
+                        This shift was the catalyst. By meticulously crafting content that was both authentic to the brand and engineered for virality, we tapped into a new, younger demographic while simultaneously re-engaging the core enthusiast base. We leveraged trending audio, refined our posting times, and created a feedback loop based on viewer data.
+
+                        The results were immediate and explosive. Within the first six months, we didn't just wake up the audience; we expanded it exponentially, achieving a verifiable surge that surpassed the 1 million view mark for the first time in the brand's history. This revitalization proved that even dormant brands can be resurrected and propelled into hyper-growth with the right strategic content lever and production discipline.
+                    </p>
+                </div>
+                <div class="md:col-span-1">
+                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
+                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
+                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
+                        <a href="https://placeholder.com/hot-rod-channel" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
+                            Hot Rod Channel Link
+                        </a>
+                        <p class="text-xs text-brand-muted mt-2">Current URL: https://placeholder.com/hot-rod-channel</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center pt-8 border-t border-brand-border">
+                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
+                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 2. E-commerce Detail View -->
+    <div id="ecommerce" class="page-view pt-24 min-h-screen">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+            <!-- Back Button -->
+            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            </a>
+            <!-- Content -->
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">TallTechChannel E-commerce Integration</h1>
+            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Built and scaled an online shop specializing in 3D printing accessories.</p>
+
+            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
+                <img src="https://placehold.co/1200x600/111111/9CA3AF?text=TallTechChannel+E-comm" 
+                     alt="Visual representation of TallTechChannel E-commerce project"
+                     class="w-full h-auto object-cover">
+                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
+                    <span class="text-3xl md:text-5xl font-extrabold text-white">500+</span>
+                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Orders Processed</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
+                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
+                        TallTechChannel started as a personal challenge and a digital experiment: What happens when you commit to posting a high-quality video every single day for 100 days straight? In the niche world of 3D printing, where technical detail often slows down production, this was a bold move.
+
+                        The strategy relied on volume and value. By flooding the feed with helpful tips, time-lapses, and troubleshooting guides, I capitalized on the platform's need for consistent content. The discipline required to shoot, edit, and post daily was immense, but the data spoke for itself. The channel grew rapidly, amassing nearly 5,000 subscribers who weren't just casual viewers—they were makers looking for solutions.
+
+                        This trust translated directly into commerce. I launched an integrated e-commerce shop selling 3D printing accessories, and the conversion rates were significantly higher than industry standards. The "100 Days" experiment proved that consistency builds trust, and trust builds a loyal customer base.
+                    </p>
+                </div>
+                <div class="md:col-span-1">
+                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
+                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
+                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
+                        <a href="https://placeholder.com/talltechchannel-store" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
+                            E-commerce Store Link
+                        </a>
+                        <p class="text-xs text-brand-muted mt-2">Current URL: https://placeholder.com/talltechchannel-store</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="text-center pt-8 border-t border-brand-border">
+                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
+                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3. Viral Brand Detail View -->
+    <div id="viralbrand" class="page-view pt-24 min-h-screen">
+        <div class="max-w-4xl mx-auto px-6 py-12">
+            <!-- Back Button -->
+            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            </a>
+            <!-- Content -->
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">Spence Sells Cars Viral Content</h1>
+            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Rapid deployment of high-performing, niche automotive content.</p>
+
+            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
+                <img src="https://placehold.co/1200x600/111111/F3F4F6?text=Spence+Sells+Cars" 
+                     alt="Visual representation of Spence Sells Cars project"
+                     class="w-full h-auto object-cover">
+                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
+                    <span class="text-3xl md:text-5xl font-extrabold text-white">5M+</span>
+                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Recent Views</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="md:col-span-2">
+                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
+                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
+                        In the highly competitive automotive sales market, most dealerships rely on heavy ad spend. "Spence Sells Cars" was built on a different premise: pure organic reach. I wanted to prove that personal branding and authentic content could outsell paid ads.
+
+                        I focused on personality-driven content that demystified the car buying process and showcased inventory in an entertaining light. By staying on top of trending audio and video formats, the channel hit a viral vein. In just eight months, the content generated over 5 million views across platforms, all without spending a dollar on promotion.
+
+                        Crucially, these weren't just vanity metrics. The visibility created a sales funnel that led directly to the dealership floor. Customers walked in holding their phones, asking for "the guy from TikTok." This organic traffic resulted in over $100,000 in direct sales revenue, validating the power of a personal brand in a traditional retail environment.
+                    </p>
+                </div>
+                <div class="md:col-span-1">
+                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
+                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
+                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
+                        <a href="https://placeholder.com/spencesellscars-tiktok" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
+                            TikTok/Reels Channel
+                        </a>
+                        <p class="text-xs text-brand-muted mt-2">Current URL: https://placeholder.com/spencesellscars-tiktok</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="text-center pt-8 border-t border-brand-border">
+                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
+                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Firebase Script Includes -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, collection, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // REMOVED: import { marked } from "..."
+    <!-- 
+        --- HOME VIEW (Default Visible) ---
+        This section is hidden when one of the detail views is targeted.
+        It must be the LAST element before the footer for the CSS selector to work.
+    -->
+    <div id="home-view" class="page-view">
+        <!-- Header Section -->
+        <header class="relative pt-40 pb-20 md:pt-52 md:pb-32 overflow-hidden px-6">
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-brand-border bg-brand-card/50 text-xs font-semibold tracking-widest uppercase text-brand-muted">
+                    Content Strategy & Audience Development
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-tight">
+                    Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-red-800">Impact</span>
+                </h1>
+                <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mx-auto leading-relaxed">
+                    A decade of high-volume engagement, viral growth, and successful online ventures.
+                </p>
+            </div>
+            <!-- Background decorative glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-red/10 rounded-full blur-[120px] pointer-events-none"></div>
+        </header>
 
-        // Global variables for Firebase and API
-        window.firebaseApp = null;
-        window.db = null;
-        window.auth = null;
-        window.userId = null;
-        window.isAuthReady = false;
-        // window.marked is now available globally via the separate <script> tag
-        window.GEMINI_MODEL = 'gemini-2.5-flash-preview-09-2025';
+        <main class="max-w-6xl mx-auto px-6 pb-24">
+            
+            <!-- Introduction Quote -->
+            <div class="mb-32">
+                <div class="border-l-4 border-brand-red bg-brand-card/30 p-8 md:p-12 rounded-r-xl max-w-4xl mx-auto backdrop-blur-sm">
+                    <i data-lucide="quote" class="text-brand-red mb-4 w-8 h-8 opacity-50"></i>
+                    <p class="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed">
+                        "This addendum provides a detailed narrative of my 10-year journey in digital content creation, brand strategy, and audience development, demonstrating a consistent ability to generate high-volume engagement and build successful online ventures."
+                    </p>
+                </div>
+            </div>
 
-        const CHAT_COLLECTION_NAME = 'messages';
+            <!-- The Journey Grid -->
+            <div class="space-y-32">
+                
+                <!-- SECTION I -->
+                <section>
+                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
+                        <span class="text-brand-red font-bold text-lg">01.</span>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Foundational Mastery</h2>
+                    </div>
 
-        // Helper function to get the current collection path for the user
-        function getChatCollectionRef(db, appId, userId) {
-            // Public path for sharing chat history
-            return collection(db, `artifacts/${appId}/public/data/${CHAT_COLLECTION_NAME}`);
-        }
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 1 -->
+                        <div class="glass-card p-8 rounded-2xl group">
+                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
+                                <i data-lucide="camera" class="text-white w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Skill Acquisition</h3>
+                            <p class="text-brand-muted leading-relaxed">
+                                Initial foundational video production experience, including projects for high school marching band and the college vlog, <span class="text-white font-medium">Pellow and Company</span>.
+                            </p>
+                        </div>
 
-        async function initializeFirebase() {
-            try {
-                // Check for firebase config using correct typeof operator
-                const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-chat-app-id';
+                        <!-- Card 2 -->
+                        <div class="glass-card p-8 rounded-2xl group">
+                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
+                                <i data-lucide="aperture" class="text-white w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Drone Specialization</h3>
+                            <p class="text-brand-muted leading-relaxed">
+                                Rapid development of expertise in drone cinematography, delivering high-quality, short-form edits for the automotive community.
+                            </p>
+                        </div>
 
-                window.firebaseApp = initializeApp(firebaseConfig);
-                window.db = getFirestore(window.firebaseApp);
-                window.auth = getAuth(window.firebaseApp);
+                        <!-- Card 3 -->
+                        <div class="glass-card p-8 rounded-2xl group">
+                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
+                                <i data-lucide="briefcase" class="text-white w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Brand Formalization</h3>
+                            <p class="text-brand-muted leading-relaxed">
+                                Official formation of <span class="text-white font-medium">The Limitless Media Group</span>, transforming technical skill into audience-driven, marketable content.
+                            </p>
+                        </div>
+                    </div>
+                </section>
 
-                document.getElementById('auth-status').textContent = 'Connecting...';
+                <!-- SECTION II -->
+                <section>
+                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
+                        <span class="text-brand-red font-bold text-lg">02.</span>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Scaling & Delivery</h2>
+                    </div>
 
-                // Sign in logic
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card 4 -->
+                        <div class="glass-card p-8 rounded-2xl group md:col-span-1">
+                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
+                                <i data-lucide="trending-up" class="text-white w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">High-Volume Strategy</h3>
+                            <p class="text-brand-muted leading-relaxed mb-4">
+                                Partnered with <span class="text-white font-medium">The Maximum Overdrive Collection</span> to manage daily cross-platform content.
+                            </p>
+                            <div class="inline-block bg-brand-red/10 text-brand-red text-sm font-semibold px-3 py-1 rounded border border-brand-red/20">
+                                Result: Millions of Combined Views
+                            </div>
+                        </div>
 
-                if (initialAuthToken) {
-                    await signInWithCustomToken(window.auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(window.auth);
-                }
+                        <!-- Card 5 -->
+                        <div class="glass-card p-8 rounded-2xl group md:col-span-1">
+                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
+                                <i data-lucide="shopping-bag" class="text-white w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Commercial Adaptability</h3>
+                            <p class="text-brand-muted leading-relaxed">
+                                Delivered high-fidelity training videos for major telecom clients and launched <span class="text-white font-medium">TallTechChannel</span>, a successful 3D printing e-commerce venture.
+                            </p>
+                        </div>
+                    </div>
+                </section>
 
-                // Wait for auth state to be ready
-                onAuthStateChanged(window.auth, (user) => {
-                    if (user) {
-                        window.userId = user.uid;
-                        document.getElementById('auth-status').textContent = `User ID: ${window.userId.substring(0, 8)}... (App ID: ${appId})`;
-                        window.isAuthReady = true;
-                        document.getElementById('submit-button').disabled = false;
-                        // Start listening for chat history
-                        setupChatListener(window.db, appId, window.userId);
-                    } else {
-                        document.getElementById('auth-status').textContent = 'Authentication Failed.';
-                        window.isAuthReady = true; // Still ready, but failed
-                    }
-                });
+                <!-- SECTION III -->
+                <section>
+                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
+                        <span class="text-brand-red font-bold text-lg">03.</span>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Explosive Growth</h2>
+                    </div>
 
-                // Export global variables
-                window.getChatCollectionRef = getChatCollectionRef;
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 6 -->
+                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i data-lucide="rocket" class="w-24 h-24 text-brand-red"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Viral Incubation</h3>
+                            <p class="text-brand-muted leading-relaxed mb-4">
+                                Lead Strategist for <span class="text-white">The Hot Rod Experience</span>.
+                            </p>
+                            <div class="text-brand-red font-bold text-lg">1M+ Views</div>
+                            <div class="text-xs text-brand-muted uppercase tracking-wider">In first 6 months</div>
+                        </div>
 
-            } catch (error) {
-                console.error("Firebase initialization or authentication failed:", error);
-                document.getElementById('auth-status').textContent = `Error: ${error.message}`;
-            }
-        }
+                        <!-- Card 7 -->
+                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden bg-gradient-to-br from-brand-card to-brand-red/10 border-brand-red/30">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i data-lucide="flame" class="w-24 h-24 text-brand-red"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Current Performance</h3>
+                            <p class="text-brand-muted leading-relaxed mb-4">
+                                Personal brand launch: <span class="text-white">Spence Sells Cars</span>.
+                            </p>
+                            <div class="text-brand-red font-bold text-lg">5M+ Views</div>
+                            <div class="text-xs text-brand-muted uppercase tracking-wider">Recent viral success</div>
+                        </div>
 
-        function setupChatListener(db, appId, userId) {
-            if (!db || !appId || !userId) {
-                console.error("Cannot set up chat listener: DB or user info missing.");
-                return;
-            }
+                        <!-- Card 8 -->
+                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i data-lucide="users" class="w-24 h-24 text-brand-red"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Future Leadership</h3>
+                            <p class="text-brand-muted leading-relaxed">
+                                Focus shifts to applying proven growth techniques in advisory and leadership roles, maximizing ROI for new strategic partnerships.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
-            const chatRef = getChatCollectionRef(db, appId, userId);
-            const chatQuery = query(chatRef, orderBy('timestamp', 'asc'), limit(50)); // Show last 50 messages
+            <!-- FEATURED PROJECTS SECTION -->
+            <section class="mt-32">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-6">
+                    Featured <span class="text-brand-red">Work</span>
+                </h2>
+                <p class="text-center text-xl text-brand-muted max-w-2xl mx-auto mb-16">
+                    A closer look at key projects, demonstrating strategic implementation leading to verifiable, high-impact results in views and community growth.
+                </p>
 
-            onSnapshot(chatQuery, (snapshot) => {
-                const messages = [];
-                snapshot.forEach(doc => {
-                    messages.push({ id: doc.id, ...doc.data() });
-                });
-                renderChatHistory(messages);
-            }, (error) => {
-                console.error("Error fetching chat history:", error);
-                // Optionally show error in UI
-            });
-        }
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1: The Hot Rod Experience -->
+                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
+                        <!-- Image Placeholder -->
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://placehold.co/800x450/111111/D92323?text=The+Hot+Rod+Experience" 
+                                alt="Placeholder image for The Hot Rod Experience project" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">Hot Rod Launch</h3>
+                            <p class="text-brand-muted text-sm mb-4">
+                                Strategy and production for a classic car enthusiast brand, focusing on short-form viral content optimization.
+                            </p>
+                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
+                                <div>
+                                    <span class="text-2xl font-extrabold text-brand-red">1M+</span>
+                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Views in 6 Months</p>
+                                </div>
+                                <a href="#hotrod" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
+                                    View Case
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-        function renderChatHistory(messages) {
-            const chatHistoryElement = document.getElementById('chat-history');
-            const fragment = document.createDocumentFragment();
-            // Check if we are near the bottom before rendering new content
-            const isScrolledToBottom = chatHistoryElement.scrollHeight - chatHistoryElement.clientHeight <= chatHistoryElement.scrollTop + 1;
+                    <!-- Project 2: TallTechChannel E-commerce -->
+                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
+                        <!-- Image Placeholder -->
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://placehold.co/800x450/111111/9CA3AF?text=TallTechChannel+E-comm" 
+                                alt="Placeholder image for TallTechChannel E-commerce project" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">E-commerce Integration</h3>
+                            <p class="text-brand-muted text-sm mb-4">
+                                Built and scaled an online shop specializing in 3D printing accessories, leveraging content for organic sales.
+                            </p>
+                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
+                                <div>
+                                    <span class="text-2xl font-extrabold text-brand-red">500+</span>
+                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Orders Processed</p>
+                                </div>
+                                <a href="#ecommerce" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
+                                    Review Strategy
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-            // Clear existing non-initial messages (keep the welcome message)
-            const initialMessage = chatHistoryElement.querySelector('.model-message-bubble').closest('.flex');
-            chatHistoryElement.innerHTML = '';
-            if (initialMessage) {
-                chatHistoryElement.appendChild(initialMessage);
-            }
+                    <!-- Project 3: Spence Sells Cars Viral Content -->
+                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
+                        <!-- Image Placeholder -->
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://placehold.co/800x450/111111/F3F4F6?text=Spence+Sells+Cars" 
+                                alt="Placeholder image for Spence Sells Cars project" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                        
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">Personal Brand Viral</h3>
+                            <p class="text-brand-muted text-sm mb-4">
+                                Rapid deployment of high-performing, niche automotive content on TikTok and Instagram Reels.
+                            </p>
+                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
+                                <div>
+                                    <span class="text-2xl font-extrabold text-brand-red">5M+</span>
+                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Recent Views</p>
+                                </div>
+                                <a href="#viralbrand" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
+                                    See Metrics
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- CONTACT SECTION (SECTION IV) -->
+            <section id="contact" class="mt-32 pt-16">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
+                    Let's <span class="text-brand-red">Create</span> Impact.
+                </h2>
+                <p class="text-center text-xl text-brand-muted max-w-xl mx-auto mb-16">
+                    I'm actively seeking roles in Marketing and Content Strategy. Reach out directly to discuss how my proven viral growth techniques can benefit your brand.
+                </p>
 
-            messages.forEach(msg => {
-                const messageElement = createMessageElement(msg.role, msg.content, msg.sources);
-                fragment.appendChild(messageElement);
-            });
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    
+                    <!-- Name Card -->
+                    <div class="glass-card p-6 rounded-xl text-center flex flex-col items-center justify-center">
+                        <i data-lucide="user" class="text-brand-red w-8 h-8 mb-3"></i>
+                        <p class="text-sm text-brand-muted uppercase tracking-widest">Contact Name</p>
+                        <p class="text-xl font-semibold text-white">Spencer J. Ostrega</p>
+                    </div>
+                    
+                    <!-- Email Card -->
+                    <div class="glass-card p-6 rounded-xl text-center group">
+                        <i data-lucide="mail" class="text-brand-red w-8 h-8 mb-3"></i>
+                        <p class="text-sm text-brand-muted uppercase tracking-widest">Email Address</p>
+                        <a href="mailto:spencerostrega@gmail.com" class="text-xl font-semibold text-white hover:text-brand-red transition-colors break-words">spencerostrega@gmail.com</a>
+                    </div>
+                    
+                    <!-- Phone Card -->
+                    <div class="glass-card p-6 rounded-xl text-center group">
+                        <i data-lucide="phone" class="text-brand-red w-8 h-8 mb-3"></i>
+                        <p class="text-sm text-brand-muted uppercase tracking-widest">Phone Number</p>
+                        <a href="tel:4632490830" class="text-xl font-semibold text-white hover:text-brand-red transition-colors">463-249-0830</a>
+                    </div>
 
-            chatHistoryElement.appendChild(fragment);
+                </div>
+                <div class="mt-16 text-center">
+                    <div class="h-1 w-24 bg-brand-red mx-auto rounded-full shadow-[0_0_15px_rgba(217,35,35,0.6)]"></div>
+                </div>
+            </section>
 
-            // Scroll to bottom if user was at the bottom or if it's the first load
-            if (isScrolledToBottom || messages.length <= 2) {
-                chatHistoryElement.scrollTop = chatHistoryElement.scrollHeight;
-            }
-        }
 
-        // Expose function globally
-        window.initializeFirebase = initializeFirebase;
-        
-        // FIX 2: Moved window.onload here, after initializeFirebase is defined and attached to window
-        window.onload = function () {
-            window.initializeFirebase();
-        };
+        </main>
+    </div>
+    <!-- END HOME VIEW -->
 
-    </script>
+    <footer class="border-t border-brand-border py-12 bg-black text-center">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col items-center">
+            <p class="text-brand-muted text-sm mb-4">© 2025 The Limitless Media Group. All rights reserved. | Strategic Media Portfolio</p>
+            <div class="flex gap-4 opacity-50 hover:opacity-100 transition-opacity">
+               <a href="https://www.linkedin.com/in/spencer-ostrega-39774715a/" target="_blank" class="hover:text-brand-red" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+               <a href="mailto:spencerostrega@gmail.com" class="hover:text-brand-red" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // --- Utility Functions ---
-
-        /**
-         * Safely escapes HTML content to prevent XSS.
-         */
-        function escapeHtml(str) {
-            return str.replace(/&/g, '&amp;')
-                      .replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;')
-                      .replace(/"/g, '&quot;')
-                      .replace(/'/g, '&#039;');
-        }
-
-        /**
-         * Renders Markdown content and handles citations.
-         */
-        function renderMarkdownWithCitations(content, sources) {
-            // Access marked globally (available from the non-module script tag)
-            let htmlContent = window.marked.parse(content);
-
-            if (sources && sources.length > 0) {
-                const citationList = sources.map((source, index) =>
-                    `<a href="${escapeHtml(source.uri)}" target="_blank" class="citation-link hover:text-indigo-800 transition duration-150">
-                        [${index + 1}] ${escapeHtml(source.title || source.uri)}
-                    </a>`
-                ).join('');
-
-                htmlContent += `<div class="mt-4 pt-2 border-t border-gray-200 text-xs text-gray-500">
-                                    <p class="font-semibold mb-1">Sources:</p>
-                                    ${citationList}
-                                </div>`;
-            }
-            return htmlContent;
-        }
-
-        /**
-         * Creates a chat message element for the UI.
-         */
-        function createMessageElement(role, content, sources = []) {
-            const isUser = role === 'user';
-            const container = document.createElement('div');
-            container.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
-
-            const bubble = document.createElement('div');
-            // Using class names defined in the style block for specificity
-            bubble.className = isUser
-                ? 'user-message-bubble text-gray-900 shadow-lg'
-                : 'model-message-bubble text-gray-800 shadow-lg markdown-content';
-
-            if (isUser) {
-                bubble.innerHTML = `<p>${escapeHtml(content)}</p>`;
-            } else {
-                bubble.innerHTML = renderMarkdownWithCitations(content, sources);
-            }
-
-            container.appendChild(bubble);
-            return container;
-        }
-
-        // --- UI Logic ---
-
-        function autoExpand(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = (textarea.scrollHeight) + 'px';
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault(); // Prevents adding a newline
-                sendMessage();
-            }
-        }
-
-        function toggleLoading(isLoading) {
-            const button = document.getElementById('submit-button');
-            const buttonText = document.getElementById('button-text');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            const input = document.getElementById('prompt-input');
-
-            button.disabled = isLoading;
-            input.disabled = isLoading;
-
-            if (isLoading) {
-                buttonText.textContent = 'Thinking...';
-                loadingIndicator.classList.remove('hidden');
-            } else {
-                buttonText.textContent = 'Send';
-                loadingIndicator.classList.add('hidden');
-            }
-        }
-
-        document.getElementById('use-system-instruction').addEventListener('change', (e) => {
-            const area = document.getElementById('system-instruction-area');
-            if (e.target.checked) {
-                area.classList.remove('hidden');
-            } else {
-                area.classList.add('hidden');
+        // Initialize Lucide icons on load (the only required script outside of tailwind config)
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
             }
         });
-
-        // --- Chat and API Logic ---
-
-        /**
-         * Adds a message to Firestore and updates the UI instantly.
-         */
-        async function saveMessage(role, content, sources = []) {
-            if (!window.db || !window.userId || typeof __app_id === 'undefined') {
-                console.error("Firestore not ready. Cannot save message.");
-                return;
-            }
-
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-chat-app-id';
-            const chatRef = window.getChatCollectionRef(window.db, appId, window.userId);
-
-            try {
-                await addDoc(chatRef, {
-                    role: role,
-                    content: content,
-                    timestamp: Date.now(),
-                    sources: sources
-                });
-            } catch (e) {
-                console.error("Error adding document: ", e);
-            }
-        }
-
-        /**
-         * Main function to handle user input and call the Gemini API.
-         */
-        async function sendMessage() {
-            const promptInput = document.getElementById('prompt-input');
-            const prompt = promptInput.value.trim();
-
-            if (!prompt) return;
-
-            // Clear input and collapse textarea
-            promptInput.value = '';
-            autoExpand(promptInput);
-
-            // 1. Save user message to Firestore
-            await saveMessage('user', prompt);
-
-            // 2. Prepare API call
-            toggleLoading(true);
-
-            const useSearch = document.getElementById('use-google-search').checked;
-            const useSystemInstruction = document.getElementById('use-system-instruction').checked;
-            const systemInstructionText = document.getElementById('system-instruction-input').value.trim();
-
-            const userQuery = prompt;
-            const apiKey = ""; // Canvas runtime provides this
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                tools: useSearch ? [{ "google_search": {} }] : undefined,
-                systemInstruction: useSystemInstruction && systemInstructionText
-                    ? { parts: [{ text: systemInstructionText }] }
-                    : undefined,
-            };
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${window.GEMINI_MODEL}:generateContent?key=${apiKey}`;
-
-            const MAX_RETRIES = 5;
-            let responseData = null;
-
-            for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        if (response.status === 429 && attempt < MAX_RETRIES - 1) {
-                            const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                            continue; // Skip to next attempt
-                        }
-                        throw new Error(`API call failed with status: ${response.status}`);
-                    }
-
-                    responseData = await response.json();
-                    break; // Success, break the retry loop
-
-                } catch (error) {
-                    if (attempt === MAX_RETRIES - 1) {
-                        console.error("Fetch/API error after all retries:", error);
-                        // Save a failure message to the chat history
-                        await saveMessage('model', `An error occurred while connecting to the AI: ${error.message}`);
-                    }
-                    if (attempt < MAX_RETRIES - 1) {
-                        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    }
-                }
-            }
-
-            toggleLoading(false);
-
-            if (responseData) {
-                const candidate = responseData.candidates?.[0];
-                let modelResponseText = "Sorry, I couldn't generate a response.";
-                let sources = [];
-
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    modelResponseText = candidate.content.parts[0].text;
-
-                    // Extract grounding sources
-                    const groundingMetadata = candidate.groundingMetadata;
-                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
-                        sources = groundingMetadata.groundingAttributions
-                            .map(attribution => ({
-                                uri: attribution.web?.uri,
-                                title: attribution.web?.title,
-                            }))
-                            .filter(source => source.uri && source.title);
-                    }
-                }
-
-                // 3. Save model response to Firestore
-                // This will trigger the onSnapshot listener and update the chat UI
-                await saveMessage('model', modelResponseText, sources);
-            }
-        }
     </script>
 </body>
 </html>
