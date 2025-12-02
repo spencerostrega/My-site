@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FIX 1: Load Marked.js using a standard script tag, accessing 'marked' from the global window object -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <style>
         /* Custom styles for aesthetic enhancements and avoiding !important */
         :root {
@@ -29,27 +32,22 @@
             padding-bottom: 2rem;
         }
 
-        /* FIX 1: Removed !important (approx. line 86) */
         .user-message-bubble {
             background-color: var(--user-bubble);
             border-radius: 1.25rem 0.5rem 1.25rem 1.25rem;
             max-width: 80%;
             padding: 1rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            /* Ensured necessary styles are present */
         }
 
-        /* FIX 1: Removed !important (approx. line 91) */
         .model-message-bubble {
             background-color: var(--gemini-bubble);
             border-radius: 0.5rem 1.25rem 1.25rem 1.25rem;
             max-width: 80%;
             padding: 1rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            /* Ensured necessary styles are present */
         }
 
-        /* FIX 1: Removed !important (approx. line 97) */
         .citation-link {
             font-size: 0.75rem;
             color: var(--primary-color);
@@ -201,7 +199,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, collection, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { marked } from "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
+        // REMOVED: import { marked } from "..."
 
         // Global variables for Firebase and API
         window.firebaseApp = null;
@@ -209,7 +207,7 @@
         window.auth = null;
         window.userId = null;
         window.isAuthReady = false;
-        window.marked = marked;
+        // window.marked is now available globally via the separate <script> tag
         window.GEMINI_MODEL = 'gemini-2.5-flash-preview-09-2025';
 
         const CHAT_COLLECTION_NAME = 'messages';
@@ -312,9 +310,13 @@
             }
         }
 
-        // Expose marked for use in main script block
-        window.marked = marked;
+        // Expose function globally
         window.initializeFirebase = initializeFirebase;
+        
+        // FIX 2: Moved window.onload here, after initializeFirebase is defined and attached to window
+        window.onload = function () {
+            window.initializeFirebase();
+        };
 
     </script>
 
@@ -336,6 +338,7 @@
          * Renders Markdown content and handles citations.
          */
         function renderMarkdownWithCitations(content, sources) {
+            // Access marked globally (available from the non-module script tag)
             let htmlContent = window.marked.parse(content);
 
             if (sources && sources.length > 0) {
@@ -424,7 +427,6 @@
          * Adds a message to Firestore and updates the UI instantly.
          */
         async function saveMessage(role, content, sources = []) {
-            // FIX 2: Ensure correct use of typeof for checks
             if (!window.db || !window.userId || typeof __app_id === 'undefined') {
                 console.error("Firestore not ready. Cannot save message.");
                 return;
@@ -484,7 +486,6 @@
             const MAX_RETRIES = 5;
             let responseData = null;
 
-            // FIX 2: Corrected 'function' issue (approx. line 610) by using a standard, valid 'for' loop structure.
             for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
                 try {
                     const response = await fetch(apiUrl, {
@@ -545,12 +546,6 @@
                 await saveMessage('model', modelResponseText, sources);
             }
         }
-
-        // Initialize Firebase when the script loads
-        window.onload = function () {
-            window.initializeFirebase();
-        };
-
     </script>
 </body>
 </html>
