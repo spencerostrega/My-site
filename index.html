@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XGQP8K0PPB"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XGQP8K0PPB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -12,25 +11,22 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strategic Media Portfolio | Digital Impact</title>
-    <!-- Load Tailwind CSS -->
+    <title>Spencer J. Ostrega | Automotive Media Strategy & Growth</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
-        // Minimal JavaScript only for Tailwind config and initial icon loading
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            red: '#D92323',
-                            dark: '#0F0F0F',
-                            card: '#161616',
-                            border: '#2A2A2A',
-                            text: '#F3F4F6',
+                            red: '#B91C1C', 
+                            dark: '#0B0F19', 
+                            card: '#111827', 
+                            border: '#374151', 
+                            text: '#F9FAFB',
                             muted: '#9CA3AF'
                         }
                     },
@@ -44,599 +40,397 @@
 
     <style>
         body {
-            background-color: #050505;
-            background-image: radial-gradient(circle at 50% 0%, #1a0505 0%, #050505 70%);
-            color: #F3F4F6;
+            background-color: #0B0F19;
+            color: #F9FAFB;
         }
-        .glass-card {
-            background: rgba(22, 22, 22, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .pro-card {
+            background: #111827;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .glass-card:hover {
-            border-color: #D92323;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px -10px rgba(217, 35, 35, 0.15);
-        }
-        /* Hide all dynamic content containers by default */
-        .page-view {
-            display: none;
-        }
-        /* Show the main view if NO fragment identifier (hash) is present */
-        #home-view {
-            display: block; 
-        }
-
-        /* Use :target to show the specific view that matches the URL fragment */
-        #home-view:target,
-        #hotrod:target,
-        #ecommerce:target,
-        #viralbrand:target {
-            display: block;
+        .pro-card:hover {
+            border-color: #B91C1C;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
         
-        /* When any detail page is targeted, hide the home view */
-        #hotrod:target ~ #home-view,
-        #ecommerce:target ~ #home-view,
-        #viralbrand:target ~ #home-view {
-             display: none;
-        }
-
-        /* --- Custom Navigation Bar Switching (Pure CSS) --- */
-        /* By default, show the contact link and hide the back button */
+        .page-view { display: none; }
+        #home-view { display: block; }
+        #home-view:target, #hotrod:target, #ecommerce:target, #viralbrand:target { display: block; }
+        #hotrod:target ~ #home-view, #ecommerce:target ~ #home-view, #viralbrand:target ~ #home-view { display: none; }
+        
         #nav-back-button, #back-to-home { display: none; }
         #nav-contact-link { display: block; }
-        
-        /* When a detail page is targeted, switch the navigation links */
         #hotrod:target ~ .nav-container #nav-contact-link,
         #ecommerce:target ~ .nav-container #nav-contact-link,
-        #viralbrand:target ~ .nav-container #nav-contact-link {
-            display: none !important;
-        }
+        #viralbrand:target ~ .nav-container #nav-contact-link { display: none !important; }
         #hotrod:target ~ .nav-container #nav-back-button,
         #ecommerce:target ~ .nav-container #nav-back-button,
-        #viralbrand:target ~ .nav-container #nav-back-button {
-            display: inline-flex !important;
-        }
-        /* Also show the contextual "Back to Home" link on detail pages */
-        #hotrod:target #back-to-home,
-        #ecommerce:target #back-to-home,
-        #viralbrand:target #back-to-home {
-            display: inline-flex !important;
-        }
+        #viralbrand:target ~ .nav-container #nav-back-button { display: inline-flex !important; }
+        #hotrod:target #back-to-home, #ecommerce:target #back-to-home, #viralbrand:target #back-to-home { display: inline-flex !important; }
 
-        /* Small helpers for logo and avatar */
-        .nav-logo { width: 36px; height: 36px; object-fit: contain; border-radius: 6px; }
-        .nav-avatar { width: 36px; height: 36px; object-fit: cover; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.06); }
+        .nav-logo { width: 36px; height: 36px; object-fit: contain; border-radius: 4px; }
+        .nav-avatar { width: 36px; height: 36px; object-fit: cover; border-radius: 4px; border: 1px solid #374151; }
 
-        /* Standard CSS cleanup */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0F0F0F; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D92323; }
+        ::-webkit-scrollbar-track { background: #0B0F19; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B91C1C; }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-red selection:text-white">
 
-    <!-- Top Navigation / Brand Bar (Now with logo and avatar) -->
     <div class="nav-container">
-        <nav id="nav-bar" class="fixed w-full z-50 top-0 left-0 border-b border-brand-border bg-brand-dark/90 backdrop-blur-md">
+        <nav id="nav-bar" class="fixed w-full z-50 top-0 left-0 border-b border-brand-border bg-brand-dark/95 backdrop-blur-sm shadow-sm">
             <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-                <a href="#home-view" class="font-bold text-lg tracking-wider uppercase flex items-center gap-3 cursor-pointer hover:text-brand-red transition-colors">
-                    <!-- Logo: place logo.jpg in the same folder as this HTML (or adjust the path) -->
+                <a href="#home-view" class="font-bold text-sm tracking-widest uppercase flex items-center gap-3 cursor-pointer hover:text-brand-red transition-colors">
                     <img src="logo.jpg" alt="Site logo" class="nav-logo">
-                    <span class="hidden sm:inline">Portfolio</span>
+                    <span class="hidden sm:inline">The Limitless Media Group</span>
                 </a>
 
-                <div class="flex items-center gap-4">
-                    <!-- Contact link visible on home page -->
-                    <a id="nav-contact-link" href="#contact" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors">
-                        Contact Me
+                <div class="flex items-center gap-6">
+                    <a id="nav-contact-link" href="#contact" class="text-sm font-semibold text-brand-muted hover:text-white transition-colors">
+                        Contact
                     </a>
-
-                    <!-- Back button for detail pages (pure CSS visibility) -->
-                    <a id="nav-back-button" href="#home-view" class="hidden text-sm font-medium text-brand-muted hover:text-brand-red transition-colors">
-                        <i data-lucide="arrow-left" class="w-4 h-4 inline mr-1"></i> Back to Portfolio
+                    <a id="nav-back-button" href="#home-view" class="hidden text-sm font-semibold text-brand-muted hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-4 h-4 inline mr-1"></i> Return to Portfolio
                     </a>
-
-                    <!-- Profile avatar (always shown) -->
                     <a href="#contact" class="inline-flex items-center">
-                        <!-- Profile: place profile.jpg in the same folder as this HTML (or adjust the path) -->
                         <img src="Spenny3.jpg" alt="Spencer Ostrega" class="nav-avatar">
                     </a>
                 </div>
             </div>
         </nav>
     </div>
-    <!-- END NAV -->
 
-    <!-- 
-        --- PROJECT DETAIL VIEWS (STATIC) ---
-        These are hidden by default and shown only when their ID matches the URL fragment.
-    -->
-    
-    <!-- 1. Hot Rod Detail View -->
     <div id="hotrod" class="page-view pt-24 min-h-screen">
         <div class="max-w-4xl mx-auto px-6 py-12">
-            <!-- Back Button -->
-            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
-                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            <a id="back-to-home" href="#home-view" class="text-sm font-semibold text-brand-muted hover:text-white transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Return to Portfolio
             </a>
 
-            <!-- Content -->
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">The Hot Rod Experience Launch</h1>
-            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Strategy and production for a classic car enthusiast brand.</p>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">The Hot Rod Experience Launch</h1>
+            <p class="text-lg md:text-xl text-brand-muted max-w-2xl mb-12">Strategic overhaul and production for a dedicated classic car and track enthusiast brand.</p>
 
-            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
-                <img src="https://placehold.co/1200x600/111111/D92323?text=The+Hot+Rod+Experience" 
+            <div class="relative mb-12 rounded-lg overflow-hidden border border-brand-border bg-brand-card shadow-lg">
+                <img src="https://placehold.co/1200x600/111827/B91C1C?text=Hero+Image:+The+Hot+Rod+Experience" 
                      alt="Visual representation of The Hot Rod Experience project"
-                     class="w-full h-auto object-cover">
-                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
-                    <span class="text-3xl md:text-5xl font-extrabold text-white">1M+</span>
-                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Views in 6 Months</p>
+                     class="w-full h-auto object-cover opacity-90">
+                <div class="absolute bottom-0 left-0 bg-brand-dark/95 border-t border-r border-brand-border p-5 rounded-tr-lg">
+                    <span class="text-3xl font-bold text-white">1M+</span>
+                    <p class="text-xs text-brand-muted uppercase tracking-widest font-semibold mt-1">Views in 6 Months</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div class="md:col-span-2">
-                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
-                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
-                        When I first engaged with The Hot Rod Experience, the brand was not in the best shape. It had suffered through stagnant years of sporadic posting, resulting in a plateaued follower count and minimal organic engagement. The content that was being produced lacked cohesion, failed to adapt to new platform standards, and was effectively being ignored by the relevant algorithms. The challenge was not just to revive it, but to fundamentally redesign its digital DNA to become a high-performance content engine.
+                    <h2 class="text-2xl font-bold mb-4 border-b border-brand-border pb-2">Strategy & Execution</h2>
+                    
+                    <img src="https://placehold.co/800x400/111827/374151?text=Strategy+Image:+Hot+Rod" 
+                         alt="Hot Rod Experience Strategy execution" 
+                         class="w-full h-auto rounded-lg mb-6 border border-brand-border shadow-sm">
 
-                        The first step was a complete strategic audit of all existing assets and a decisive pivot toward what the current platforms favor: high-impact, personal, short-form video optimized vertically for TikTok and Instagram Reels. This involved moving away from passive, quote-driven content to a rigorous, daily production schedule focused on the visceral elements of car culture: race days, and sponsor highlights, with a fast paced and personal touch.
+                    <p class="text-brand-muted leading-relaxed text-[1.05rem] whitespace-pre-line">
+                        Operating as the Lead Growth Strategist for The Hot Rod Experience, I was tasked with modernizing a brand that had plateaued due to stagnant, legacy content formats. The objective was to fundamentally redesign its digital DNA to become a high-performance, engaging content engine.
 
-                        This shift was the catalyst. By meticulously crafting content that was both authentic to the brand and engineered for virality, we tapped into a new, younger demographic while simultaneously re-engaging the core enthusiast base. We leveraged trending audio, refined our posting times, and created a feedback loop based on viewer data.
+                        My first step was a comprehensive audit, followed by a decisive pivot toward high-impact, personal, short-form video. I shifted the focus to the visceral elements of car culture—race days, track performance, and sponsor highlights—packaged with a fast-paced, highly authentic touch optimized for modern platform algorithms.
 
-                        The results were immediate and explosive. Within the first six months, we didn't just wake up the audience; we expanded it exponentially, achieving a verifiable surge that surpassed the 1 million view mark for the first time in the brand's history. This revitalization proved that even dormant brands can be resurrected and propelled into hyper-growth with the right strategic content lever and production discipline.
+                        By rigorously managing daily production and establishing a feedback loop based on viewer data, we tapped into a younger demographic while re-engaging the core enthusiast base. The results were immediate: within the first six months, we surpassed the 1 million view mark, proving that dormant automotive brands can achieve hyper-growth with disciplined strategic execution.
                     </p>
                 </div>
                 <div class="md:col-span-1">
-                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
-                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
-                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
-                        <a href="https://www.facebook.com/HotRodExperience" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
-                            Hot Rod Channel Link
+                    <div class="pro-card p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3 text-white flex items-center gap-2"><i data-lucide="external-link" class="w-5 h-5 text-brand-red"></i> Live Deployment</h3>
+                        <p class="text-brand-muted text-sm mb-5">Review the active channel and audience engagement below.</p>
+                        <a href="https://www.facebook.com/HotRodExperience" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded hover:bg-red-800 transition-colors">
+                            View Channel
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Call to Action -->
             <div class="text-center pt-8 border-t border-brand-border">
-                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
-                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
-                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded text-md hover:bg-red-800 transition-colors inline-flex items-center gap-2 shadow-md">
+                    Discuss Your Shop's Growth <i data-lucide="mail" class="w-4 h-4"></i>
                 </a>
             </div>
         </div>
     </div>
     
-    <!-- 2. E-commerce Detail View -->
     <div id="ecommerce" class="page-view pt-24 min-h-screen">
         <div class="max-w-4xl mx-auto px-6 py-12">
-            <!-- Back Button -->
-            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
-                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            <a id="back-to-home" href="#home-view" class="text-sm font-semibold text-brand-muted hover:text-white transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Return to Portfolio
             </a>
-            <!-- Content -->
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">TallTechChannel E-commerce Integration</h1>
-            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Built and scaled an online shop specializing in 3D printing accessories.</p>
+            
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">TallTechChannel & E-commerce Integration</h1>
+            <p class="text-lg md:text-xl text-brand-muted max-w-2xl mb-12">Scaling a technical audience and converting engagement into direct sales.</p>
 
-            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
-                <img src="https://placehold.co/1200x600/111111/9CA3AF?text=TallTechChannel+E-comm" 
+            <div class="relative mb-12 rounded-lg overflow-hidden border border-brand-border bg-brand-card shadow-lg">
+                <img src="https://placehold.co/1200x600/111827/9CA3AF?text=Hero+Image:+TallTechChannel" 
                      alt="Visual representation of TallTechChannel E-commerce project"
-                     class="w-full h-auto object-cover">
-                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
-                    <span class="text-3xl md:text-5xl font-extrabold text-white">500+</span>
-                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Orders Processed</p>
+                     class="w-full h-auto object-cover opacity-90">
+                <div class="absolute bottom-0 left-0 bg-brand-dark/95 border-t border-r border-brand-border p-5 rounded-tr-lg">
+                    <span class="text-3xl font-bold text-white">500+</span>
+                    <p class="text-xs text-brand-muted uppercase tracking-widest font-semibold mt-1">Orders Processed</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div class="md:col-span-2">
-                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
-                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
-                        TallTechChannel started as a personal challenge and a digital experiment: What happens when you commit to posting a high-quality video every single day for 100 days straight? In the niche world of 3D printing, where technical detail often slows down production, this was a bold move.
+                    <h2 class="text-2xl font-bold mb-4 border-b border-brand-border pb-2">Strategy & Execution</h2>
+                    
+                    <img src="https://placehold.co/800x400/111827/374151?text=Strategy+Image:+TallTechChannel" 
+                         alt="TallTechChannel Strategy execution" 
+                         class="w-full h-auto rounded-lg mb-6 border border-brand-border shadow-sm">
 
-                        The strategy relied on volume and value. By flooding the feed with helpful tips, time-lapses, and troubleshooting guides, I capitalized on the platform's need for consistent content. The discipline required to shoot, edit, and post daily was immense, but the data spoke for itself. The channel grew rapidly, amassing nearly 5,000 subscribers who weren't just casual viewers—they were makers looking for solutions.
+                    <p class="text-brand-muted leading-relaxed text-[1.05rem] whitespace-pre-line">
+                        TallTechChannel began as a disciplined digital experiment: publishing a high-quality, technical video every single day for 100 consecutive days. In the detail-oriented niche of 3D printing, consistently delivering value through time-lapses, troubleshooting, and guides established immense brand authority.
 
-                        This trust translated directly into commerce. I launched an integrated e-commerce shop selling 3D printing accessories, and the conversion rates were significantly higher than industry standards. The "100 Days" experiment proved that consistency builds trust, and trust builds a loyal customer base.
+                        The channel quickly grew to nearly 5,000 highly engaged subscribers. Capitalizing on this earned trust, I launched an integrated e-commerce operation providing specialized 3D printing accessories. 
+
+                        Because the audience relied on the technical expertise demonstrated in the content, conversion rates significantly outperformed standard industry benchmarks. This project serves as a blueprint for how consistent, value-driven content builds a loyal customer base ready to purchase.
                     </p>
                 </div>
                 <div class="md:col-span-1">
-                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
-                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
-                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
-                        <a href="https://www.instagram.com/talltechchannel/" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
-                            E-commerce Store Link
+                    <div class="pro-card p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3 text-white flex items-center gap-2"><i data-lucide="shopping-cart" class="w-5 h-5 text-brand-red"></i> Live Deployment</h3>
+                        <p class="text-brand-muted text-sm mb-5">Review the brand consistency and digital storefront.</p>
+                        <a href="https://www.instagram.com/talltechchannel/" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded hover:bg-red-800 transition-colors">
+                            View Storefront
                         </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Call to Action -->
             <div class="text-center pt-8 border-t border-brand-border">
-                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
-                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
-                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded text-md hover:bg-red-800 transition-colors inline-flex items-center gap-2 shadow-md">
+                    Discuss Your Shop's Growth <i data-lucide="mail" class="w-4 h-4"></i>
                 </a>
             </div>
         </div>
     </div>
     
-    <!-- 3. Viral Brand Detail View -->
     <div id="viralbrand" class="page-view pt-24 min-h-screen">
         <div class="max-w-4xl mx-auto px-6 py-12">
-            <!-- Back Button -->
-            <a id="back-to-home" href="#home-view" class="text-sm font-medium text-brand-muted hover:text-brand-red transition-colors mb-8 inline-flex items-center">
-                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Back to Portfolio
+            <a id="back-to-home" href="#home-view" class="text-sm font-semibold text-brand-muted hover:text-white transition-colors mb-8 inline-flex items-center">
+                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i> Return to Portfolio
             </a>
-            <!-- Content -->
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-white">Spence Sells Cars Viral Content</h1>
-            <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mb-12">Rapid deployment of high-performing, niche automotive content.</p>
+            
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">Spence Sells Cars: Dealership Traffic</h1>
+            <p class="text-lg md:text-xl text-brand-muted max-w-2xl mb-12">Driving localized, organic foot traffic directly to the showroom floor.</p>
 
-            <div class="relative mb-12 rounded-xl overflow-hidden shadow-2xl border border-brand-border">
-                <img src="https://placehold.co/1200x600/111111/F3F4F6?text=Spence+Sells+Cars" 
+            <div class="relative mb-12 rounded-lg overflow-hidden border border-brand-border bg-brand-card shadow-lg">
+                <img src="https://placehold.co/1200x600/111827/F9FAFB?text=Hero+Image:+Spence+Sells+Cars" 
                      alt="Visual representation of Spence Sells Cars project"
-                     class="w-full h-auto object-cover">
-                <div class="absolute bottom-0 left-0 bg-brand-red/90 backdrop-blur-sm p-4 md:p-6 rounded-tr-xl">
-                    <span class="text-3xl md:text-5xl font-extrabold text-white">5M+</span>
-                    <p class="text-xs md:text-sm text-white uppercase tracking-wider">Recent Views</p>
+                     class="w-full h-auto object-cover opacity-90">
+                <div class="absolute bottom-0 left-0 bg-brand-dark/95 border-t border-r border-brand-border p-5 rounded-tr-lg">
+                    <span class="text-3xl font-bold text-white">$100k+</span>
+                    <p class="text-xs text-brand-muted uppercase tracking-widest font-semibold mt-1">Direct Sales Attributed</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div class="md:col-span-2">
-                    <h2 class="text-3xl font-bold mb-4 border-b border-brand-border pb-2">Case Summary</h2>
-                    <p class="text-brand-muted leading-relaxed text-lg whitespace-pre-line">
-                        In the highly competitive automotive sales market, most dealerships rely on heavy ad spend. "Spence Sells Cars" was built on a different premise: pure organic reach. I wanted to prove that personal branding and authentic content could outsell paid ads.
+                    <h2 class="text-2xl font-bold mb-4 border-b border-brand-border pb-2">Strategy & Execution</h2>
+                    
+                    <img src="https://placehold.co/800x400/111827/374151?text=Strategy+Image:+Spence+Sells+Cars" 
+                         alt="Spence Sells Cars Strategy execution" 
+                         class="w-full h-auto rounded-lg mb-6 border border-brand-border shadow-sm">
 
-                        I focused on personality-driven content that demystified the car buying process and showcased inventory in an entertaining light. By staying on top of trending audio and video formats, the channel hit a viral vein. In just eight months, the content generated over 5 million views across platforms, all without spending a dollar on promotion.
+                    <p class="text-brand-muted leading-relaxed text-[1.05rem] whitespace-pre-line">
+                        While working the sales floor specializing in Chevrolet and GM vehicles, I recognized that traditional, expensive dealership ad spend was yielding diminishing returns. "Spence Sells Cars" was developed to prove that authentic, personality-driven content could significantly outperform paid regional ads.
 
-                        Crucially, these weren't just vanity metrics. The visibility created a sales funnel that led directly to the dealership floor. Customers walked in holding their phones, asking for "the guy from TikTok." This organic traffic resulted in over $100,000 in direct sales revenue, validating the power of a personal brand in a traditional retail environment.
+                        By creating entertaining, informative content that demystified the car buying process and highlighted inventory dynamically, the channel quickly gained traction. Over an eight-month period, the content generated over 5 million views organically.
+
+                        More importantly, these views translated directly to the bottom line. Customers actively sought me out at the dealership based on the content, bypassing standard lead funnels. This resulted in over $100,000 in direct, verifiable sales revenue—demonstrating my ability to not just generate digital impressions, but to drive physical, paying customers through automotive retail doors.
                     </p>
                 </div>
                 <div class="md:col-span-1">
-                    <div class="glass-card p-6 rounded-xl border border-brand-red/50">
-                        <h3 class="text-xl font-bold mb-4 text-brand-red flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> Live Project Link</h3>
-                        <p class="text-brand-muted text-sm mb-3">Click below to visit the official channel or website for this project.</p>
-                        <a href="https://www.facebook.com/spencerostrega" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
-                            TikTok/Reels Channel
+                    <div class="pro-card p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3 text-white flex items-center gap-2"><i data-lucide="car" class="w-5 h-5 text-brand-red"></i> Live Deployment</h3>
+                        <p class="text-brand-muted text-sm mb-5">Review the organic reach and content formatting.</p>
+                        <a href="https://www.facebook.com/spencerostrega" target="_blank" class="w-full inline-flex justify-center items-center px-4 py-2.5 bg-brand-red text-white font-semibold rounded hover:bg-red-800 transition-colors">
+                            View Channel
                         </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Call to Action -->
             <div class="text-center pt-8 border-t border-brand-border">
-                <p class="text-lg text-white mb-4">Ready to discuss strategic growth?</p>
-                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded-full text-lg hover:bg-red-700 transition-colors inline-flex items-center gap-2">
-                    Get in Touch <i data-lucide="mail" class="w-5 h-5"></i>
+                <a href="#contact" class="px-8 py-3 bg-brand-red text-white font-bold rounded text-md hover:bg-red-800 transition-colors inline-flex items-center gap-2 shadow-md">
+                    Discuss Your Shop's Growth <i data-lucide="mail" class="w-4 h-4"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- 
-        --- HOME VIEW (Default Visible) ---
-        This section is hidden when one of the detail views is targeted.
-        It must be the LAST element before the footer for the CSS selector to work.
-    -->
     <div id="home-view" class="page-view">
-        <!-- Header Section -->
-        <header class="relative pt-40 pb-20 md:pt-52 md:pb-32 overflow-hidden px-6">
-            <div class="max-w-4xl mx-auto text-center relative z-10">
-                <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-brand-border bg-brand-card/50 text-xs font-semibold tracking-widest uppercase text-brand-muted">
-                    Content Strategy & Audience Development
-                </div>
-
-                <!-- Profile area: added profile image and quick bio -->
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <img src="profile.jpg" alt="Spencer J. Ostrega" class="w-20 h-20 rounded-full border-2 border-brand-border object-cover shadow-sm">
-                    <div class="text-left">
-                        <div class="text-sm text-brand-muted uppercase tracking-widest">Spencer J. Ostrega</div>
-                        <div class="text-lg font-semibold">Marketing | Content Strategy | Growth</div>
+        
+        <header class="pt-32 pb-16 md:pt-40 md:pb-24 px-6 border-b border-brand-border bg-gradient-to-b from-brand-card/50 to-brand-dark">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <img src="profile.jpg" alt="Spencer J. Ostrega" class="w-32 h-32 rounded bg-brand-card border border-brand-border object-cover shadow-lg">
+                    
+                    <div class="text-center md:text-left">
+                        <div class="inline-block mb-3 px-3 py-1 rounded border border-brand-red/30 bg-brand-red/10 text-xs font-bold tracking-widest uppercase text-brand-red">
+                            Content Strategy & Audience Development
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
+                            Spencer J. Ostrega
+                        </h1>
+                        <p class="text-xl text-brand-muted font-medium mb-2">Automotive Marketing & Digital Growth Specialist</p>
+                        <p class="text-base text-gray-400 max-w-2xl leading-relaxed">
+                            Leveraging a decade of media production, collegiate experience in Organizational Leadership, and direct experience on the dealership sales floor to build highly profitable, engaged audiences for the automotive industry.
+                        </p>
                     </div>
                 </div>
-
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-tight">
-                    Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-red-800">Impact</span>
-                </h1>
-                <p class="text-xl md:text-2xl font-light text-brand-muted max-w-2xl mx-auto leading-relaxed">
-                    A decade of high-volume engagement, viral growth, and successful online ventures.
-                </p>
             </div>
-            <!-- Background decorative glow -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-red/10 rounded-full blur-[120px] pointer-events-none"></div>
         </header>
 
-        <main class="max-w-6xl mx-auto px-6 pb-24">
+        <main class="max-w-6xl mx-auto px-6 py-20">
             
-            <!-- Introduction Quote -->
-            <div class="mb-32">
-                <div class="border-l-4 border-brand-red bg-brand-card/30 p-8 md:p-12 rounded-r-xl max-w-4xl mx-auto backdrop-blur-sm">
-                    <i data-lucide="quote" class="text-brand-red mb-4 w-8 h-8 opacity-50"></i>
-                    <p class="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed">
-                        "This site provides a detailed narrative of my 10-year journey in digital content creation, brand strategy, and audience development, demonstrating a consistent ability to generate high-volume engagement and build successful online ventures."
-                    </p>
-                </div>
-            </div>
-
-            <!-- The Journey Grid -->
-            <div class="space-y-32">
-                <!-- SECTION I -->
+            <div class="space-y-24">
                 <section>
-                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
-                        <span class="text-brand-red font-bold text-lg">01.</span>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Foundational Mastery</h2>
+                    <div class="flex items-center gap-4 mb-10 border-b border-brand-border pb-3">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Industry Foundation & Skillset</h2>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Card 1 -->
-                        <div class="glass-card p-8 rounded-2xl group">
-                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
-                                <i data-lucide="camera" class="text-white w-6 h-6"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Skill Acquisition</h3>
-                            <p class="text-brand-muted leading-relaxed">
-                                Initial foundational video production experience, including projects for high school marching band and the college vlog, <span class="text-white font-medium">Pellow and Company</span>.
+                        <div class="pro-card p-8 rounded-lg">
+                            <i data-lucide="camera" class="text-brand-red w-6 h-6 mb-4"></i>
+                            <h3 class="text-lg font-bold mb-2 text-white">Technical Production</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">
+                                Formally established via <span class="text-white font-medium">The Limitless Media Group</span>. Deep expertise in high-fidelity shooting, editing, and technical communications tailored for commercial application.
                             </p>
                         </div>
 
-                        <!-- Card 2 -->
-                        <div class="glass-card p-8 rounded-2xl group">
-                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
-                                <i data-lucide="aperture" class="text-white w-6 h-6"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Drone Specialization</h3>
-                            <p class="text-brand-muted leading-relaxed">
-                                Rapid development of expertise in drone cinematography, delivering high-quality, short-form edits for the automotive community.
+                        <div class="pro-card p-8 rounded-lg">
+                            <i data-lucide="crosshair" class="text-brand-red w-6 h-6 mb-4"></i>
+                            <h3 class="text-lg font-bold mb-2 text-white">Specialized Cinematography</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">
+                                High-end drone operation and fast-paced, dynamic editing specifically geared toward capturing automotive performance and shop culture.
                             </p>
                         </div>
 
-                        <!-- Card 3 -->
-                        <div class="glass-card p-8 rounded-2xl group">
-                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
-                                <i data-lucide="briefcase" class="text-white w-6 h-6"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Brand Formalization</h3>
-                            <p class="text-brand-muted leading-relaxed">
-                                Official formation of <span class="text-white font-medium">The Limitless Media Group</span>, transforming technical skill into audience-driven, marketable content.
+                        <div class="pro-card p-8 rounded-lg">
+                            <i data-lucide="users" class="text-brand-red w-6 h-6 mb-4"></i>
+                            <h3 class="text-lg font-bold mb-2 text-white">Team & Leadership Acumen</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">
+                                Backed by a background in Organizational Leadership from IUPUI and professional HR/recruiting experience, ensuring marketing strategies align with your internal team operations.
                             </p>
                         </div>
                     </div>
                 </section>
 
-                <!-- SECTION II -->
                 <section>
-                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
-                        <span class="text-brand-red font-bold text-lg">02.</span>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Scaling & Delivery</h2>
+                    <div class="flex items-center gap-4 mb-10 border-b border-brand-border pb-3">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Featured Case Studies</h2>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Card 4 -->
-                        <div class="glass-card p-8 rounded-2xl group md:col-span-1">
-                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
-                                <i data-lucide="trending-up" class="text-white w-6 h-6"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">High-Volume Strategy</h3>
-                            <p class="text-brand-muted leading-relaxed mb-4">
-                                Partnered with <span class="text-white font-medium">The Maximum Overdrive Collection</span> to manage daily cross-platform content.
-                            </p>
-                            <div class="inline-block bg-brand-red/10 text-brand-red text-sm font-semibold px-3 py-1 rounded border border-brand-red/20">
-                                Result: Millions of Combined Views
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="glass-card p-8 rounded-2xl group md:col-span-1">
-                            <div class="mb-6 p-3 bg-brand-dark rounded-lg w-fit border border-brand-border group-hover:border-brand-red/50 transition-colors">
-                                <i data-lucide="shopping-bag" class="text-white w-6 h-6"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Commercial Adaptability</h3>
-                            <p class="text-brand-muted leading-relaxed">
-                                Delivered high-fidelity training videos for major telecom clients and launched <span class="text-white font-medium">TallTechChannel</span>, a successful 3D printing e-commerce venture.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SECTION III -->
-                <section>
-                    <div class="flex flex-col md:flex-row items-baseline gap-4 mb-12 border-b border-brand-border pb-4">
-                        <span class="text-brand-red font-bold text-lg">03.</span>
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Explosive Growth</h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Card 6 -->
-                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i data-lucide="rocket" class="w-24 h-24 text-brand-red"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Viral Incubation</h3>
-                            <p class="text-brand-muted leading-relaxed mb-4">
-                                Lead Strategist for <span class="text-white">The Hot Rod Experience</span>.
-                            </p>
-                            <div class="text-brand-red font-bold text-lg">1M+ Views</div>
-                            <div class="text-xs text-brand-muted uppercase tracking-wider">In first 6 months</div>
-                        </div>
-
-                        <!-- Card 7 -->
-                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden bg-gradient-to-br from-brand-card to-brand-red/10 border-brand-red/30">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i data-lucide="flame" class="w-24 h-24 text-brand-red"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Current Performance</h3>
-                            <p class="text-brand-muted leading-relaxed mb-4">
-                                Personal brand launch: <span class="text-white">Spence Sells Cars</span>.
-                            </p>
-                            <div class="text-brand-red font-bold text-lg">5M+ Views</div>
-                            <div class="text-xs text-brand-muted uppercase tracking-wider">Recent viral success</div>
-                        </div>
-
-                        <!-- Card 8 -->
-                        <div class="glass-card p-8 rounded-2xl group relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i data-lucide="users" class="w-24 h-24 text-brand-red"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-white group-hover:text-brand-red transition-colors">Future Leadership</h3>
-                            <p class="text-brand-muted leading-relaxed">
-                                Focus shifts to applying proven growth techniques in advisory and leadership roles, maximizing ROI for new strategic partnerships.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- FEATURED PROJECTS SECTION -->
-            <section class="mt-32">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-6">
-                    Featured <span class="text-brand-red">Work</span>
-                </h2>
-                <p class="text-center text-xl text-brand-muted max-w-2xl mx-auto mb-16">
-                    A closer look at key projects, demonstrating strategic implementation leading to verifiable, high-impact results in views and community growth.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
-                    <!-- Project 1: The Hot Rod Experience -->
-                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
-                        <!-- Image Placeholder -->
-                        <div class="aspect-video overflow-hidden">
-                            <img src="https://placehold.co/800x450/111111/D92323?text=The+Hot+Rod+Experience" 
-                                alt="Placeholder image for The Hot Rod Experience project" 
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">Hot Rod Launch</h3>
-                            <p class="text-brand-muted text-sm mb-4">
-                                Strategy and production for a race car and track day enthusiast brand, focusing on short-form personal viral content optimization.
-                            </p>
-                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
-                                <div>
-                                    <span class="text-2xl font-extrabold text-brand-red">1M+</span>
-                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Views in 6 Months</p>
-                                </div>
-                                <a href="#hotrod" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
-                                    View Case
-                                </a>
+                        <div class="group relative rounded-lg overflow-hidden pro-card flex flex-col h-full">
+                            <div class="aspect-video overflow-hidden border-b border-brand-border bg-brand-dark">
+                                <img src="https://placehold.co/800x450/111827/B91C1C?text=Box+Image:+Hot+Rod+Experience" 
+                                    alt="The Hot Rod Experience project cover" 
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90">
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2: TallTechChannel E-commerce -->
-                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
-                        <!-- Image Placeholder -->
-                        <div class="aspect-video overflow-hidden">
-                            <img src="https://placehold.co/800x450/111111/9CA3AF?text=TallTechChannel+E-comm" 
-                                alt="Placeholder image for TallTechChannel E-commerce project" 
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        </div>
-                        
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">E-commerce Integration</h3>
-                            <p class="text-brand-muted text-sm mb-4">
-                                Built and scaled an online shop specializing in 3D printing accessories, leveraging content for organic sales.
-                            </p>
-                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
-                                <div>
-                                    <span class="text-2xl font-extrabold text-brand-red">500+</span>
-                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Orders Processed</p>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="inline-block mb-3 px-2 py-1 rounded border border-brand-border bg-brand-dark text-xs font-bold uppercase text-brand-muted w-max">
+                                    Lead Growth Strategist
                                 </div>
-                                <a href="#ecommerce" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
+                                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors">The Hot Rod Experience</h3>
+                                <p class="text-brand-muted text-sm mb-6 flex-grow">
+                                    Resurrected a dormant automotive brand by executing a highly optimized short-form strategy, resulting in over 1 million views in six months.
+                                </p>
+                                <a href="#hotrod" class="w-full text-center block px-4 py-2 border border-brand-border hover:border-brand-red hover:bg-brand-red/10 text-white text-sm font-semibold rounded transition-all mt-auto">
                                     Review Strategy
                                 </a>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Project 3: Spence Sells Cars Viral Content -->
-                    <div class="group relative rounded-2xl overflow-hidden glass-card p-0 hover:shadow-2xl hover:shadow-brand-red/20">
-                        <!-- Image Placeholder -->
-                        <div class="aspect-video overflow-hidden">
-                            <img src="https://placehold.co/800x450/111111/F3F4F6?text=Spence+Sells+Cars" 
-                                alt="Placeholder image for Spence Sells Cars project" 
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        </div>
-                        
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">Personal Brand Viral</h3>
-                            <p class="text-brand-muted text-sm mb-4">
-                                Rapid deployment of high-performing, niche automotive content on TikTok and Instagram Reels.
-                            </p>
-                            <div class="flex justify-between items-center border-t border-brand-border pt-4">
-                                <div>
-                                    <span class="text-2xl font-extrabold text-brand-red">5M+</span>
-                                    <p class="text-xs text-brand-muted uppercase tracking-wider">Recent Views</p>
+                        <div class="group relative rounded-lg overflow-hidden pro-card flex flex-col h-full">
+                            <div class="aspect-video overflow-hidden border-b border-brand-border bg-brand-dark">
+                                <img src="https://placehold.co/800x450/111827/9CA3AF?text=Box+Image:+TallTechChannel" 
+                                    alt="TallTechChannel E-commerce project cover" 
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="inline-block mb-3 px-2 py-1 rounded border border-brand-border bg-brand-dark text-xs font-bold uppercase text-brand-muted w-max">
+                                    Creator & Strategist
                                 </div>
-                                <a href="#viralbrand" class="px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors">
-                                    See Metrics
+                                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors">TallTechChannel E-comm</h3>
+                                <p class="text-brand-muted text-sm mb-6 flex-grow">
+                                    Converted daily high-fidelity technical content into direct consumer product sales, driving hundreds of processed orders.
+                                </p>
+                                <a href="#ecommerce" class="w-full text-center block px-4 py-2 border border-brand-border hover:border-brand-red hover:bg-brand-red/10 text-white text-sm font-semibold rounded transition-all mt-auto">
+                                    Review Strategy
                                 </a>
                             </div>
                         </div>
+
+                        <div class="group relative rounded-lg overflow-hidden pro-card flex flex-col h-full">
+                            <div class="aspect-video overflow-hidden border-b border-brand-border bg-brand-dark">
+                                <img src="https://placehold.co/800x450/111827/F9FAFB?text=Box+Image:+Spence+Sells+Cars" 
+                                    alt="Spence Sells Cars project cover" 
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="inline-block mb-3 px-2 py-1 rounded border border-brand-border bg-brand-dark text-xs font-bold uppercase text-brand-muted w-max">
+                                    Creator & Strategist
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-white group-hover:text-brand-red transition-colors">Spence Sells Cars</h3>
+                                <p class="text-brand-muted text-sm mb-6 flex-grow">
+                                    Leveraged dealership floor experience to bypass traditional ads, generating local foot traffic and six-figure revenue through organic media.
+                                </p>
+                                <a href="#viralbrand" class="w-full text-center block px-4 py-2 border border-brand-border hover:border-brand-red hover:bg-brand-red/10 text-white text-sm font-semibold rounded transition-all mt-auto">
+                                    Review Strategy
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
             
-            <!-- CONTACT SECTION (SECTION IV) -->
-            <section id="contact" class="mt-32 pt-16">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
-                    Let's <span class="text-brand-red">Create</span> Impact.
-                </h2>
-                <p class="text-center text-xl text-brand-muted max-w-xl mx-auto mb-16">
-                    I'm actively seeking roles in Marketing and Content Strategy. Reach out directly to discuss how my proven viral growth techniques can benefit your brand.
-                </p>
+            <section id="contact" class="mt-24 pt-16 border-t border-brand-border">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-white mb-4">
+                        Ready to scale your shop's digital presence?
+                    </h2>
+                    <p class="text-lg text-brand-muted mb-10">
+                        I am actively partnering with local automotive businesses to build modern, high-converting social media strategies. Let's discuss how we can get more cars in your bays.
+                    </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                    
-                    <!-- Name Card -->
-                    <div class="glass-card p-6 rounded-xl text-center flex flex-col items-center justify-center">
-                        <img src="profile.jpg" alt="Spencer Ostrega" class="w-20 h-20 rounded-full mb-4 object-cover border border-brand-border">
-                        <p class="text-sm text-brand-muted uppercase tracking-widest">Contact Name</p>
-                        <p class="text-xl font-semibold text-white">Spencer J. Ostrega</p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                        <a href="tel:4632490830" class="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 bg-brand-card border border-brand-border hover:border-brand-red rounded-lg text-white font-semibold transition-all shadow-sm">
+                            <i data-lucide="phone" class="text-brand-red w-5 h-5"></i>
+                            463-249-0830
+                        </a>
+                        <a href="mailto:spencerostrega@gmail.com" class="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-4 bg-brand-card border border-brand-border hover:border-brand-red rounded-lg text-white font-semibold transition-all shadow-sm">
+                            <i data-lucide="mail" class="text-brand-red w-5 h-5"></i>
+                            Email Spencer
+                        </a>
                     </div>
-                    
-                    <!-- Email Card -->
-                    <div class="glass-card p-6 rounded-xl text-center group">
-                        <i data-lucide="mail" class="text-brand-red w-8 h-8 mb-3"></i>
-                        <p class="text-sm text-brand-muted uppercase tracking-widest">Email Address</p>
-                        <a href="mailto:spencerostrega@gmail.com" class="text-xl font-semibold text-white hover:text-brand-red transition-colors break-words">spencerostrega@gmail.com</a>
-                    </div>
-                    
-                    <!-- Phone Card -->
-                    <div class="glass-card p-6 rounded-xl text-center group">
-                        <i data-lucide="phone" class="text-brand-red w-8 h-8 mb-3"></i>
-                        <p class="text-sm text-brand-muted uppercase tracking-widest">Phone Number</p>
-                        <a href="tel:4632490830" class="text-xl font-semibold text-white hover:text-brand-red transition-colors">463-249-0830</a>
-                    </div>
-
-                </div>
-                <div class="mt-16 text-center">
-                    <div class="h-1 w-24 bg-brand-red mx-auto rounded-full shadow-[0_0_15px_rgba(217,35,35,0.6)]"></div>
                 </div>
             </section>
-
 
         </main>
     </div>
-    <!-- END HOME VIEW -->
 
-    <footer class="border-t border-brand-border py-12 bg-black text-center">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col items-center">
-            <p class="text-brand-muted text-sm mb-4">© 2025 The Limitless Media Group. All rights reserved. | Strategic Media Portfolio</p>
-            <div class="flex gap-4 opacity-50 hover:opacity-100 transition-opacity">
-               <a href="https://www.linkedin.com/in/spencer-ostrega-39774715a/" target="_blank" class="hover:text-brand-red" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-               <a href="mailto:spencerostrega@gmail.com" class="hover:text-brand-red" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
+    <footer class="border-t border-brand-border py-8 bg-black">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+            <p class="text-brand-muted text-sm mb-4 md:mb-0">© 2025 The Limitless Media Group. All rights reserved.</p>
+            <div class="flex gap-6">
+               <a href="https://www.linkedin.com/in/spencer-ostrega-39774715a/" target="_blank" class="text-brand-muted hover:text-brand-red transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+               <a href="mailto:spencerostrega@gmail.com" class="text-brand-muted hover:text-brand-red transition-colors" aria-label="Email"><i data-lucide="mail" class="w-5 h-5"></i></a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Initialize Lucide icons on load (the only required script outside of tailwind config)
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
@@ -645,5 +439,3 @@
     </script>
 </body>
 </html>
-
-
